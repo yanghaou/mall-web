@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.TBrandsMapper">
+  <resultMap id="BaseResultMap" type="com.mall.model.TBrand">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="first_char" jdbcType="INTEGER" property="firstChar" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="brand_company" jdbcType="VARCHAR" property="brandCompany" />
+    <result column="brand_logo" jdbcType="VARCHAR" property="brandLogo" />
+    <result column="brand_big_icon" jdbcType="VARCHAR" property="brandBigIcon" />
+    <result column="show" jdbcType="INTEGER" property="show" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.mall.model.TBrand">
+    insert into t_brands (id, name, first_char, 
+      order_num, brand_company, brand_logo, 
+      brand_big_icon, show, create_time, 
+      update_time)
+    values (
+      #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{firstChar,jdbcType=INTEGER},
+      #{orderNum,jdbcType=INTEGER}, #{brandCompany,jdbcType=VARCHAR}, #{brandLogo,jdbcType=VARCHAR}, 
+      #{brandBigIcon,jdbcType=VARCHAR}, #{show,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mall.model.TBrand">
+    insert into t_brands
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="firstChar != null">
+        first_char,
+      </if>
+      <if test="orderNum != null">
+        order_num,
+      </if>
+      <if test="brandCompany != null">
+        brand_company,
+      </if>
+      <if test="brandLogo != null">
+        brand_logo,
+      </if>
+      <if test="brandBigIcon != null">
+        brand_big_icon,
+      </if>
+      <if test="show != null">
+        show,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="firstChar != null">
+        #{firstChar,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null">
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="brandCompany != null">
+        #{brandCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="brandLogo != null">
+        #{brandLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="brandBigIcon != null">
+        #{brandBigIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="show != null">
+        #{show,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>
