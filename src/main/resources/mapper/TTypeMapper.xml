@@ -73,10 +73,11 @@
   <select id="getAll" resultMap="baseResultMap">
     SELECT * FROM t_type
   </select>
-  <delete id="delete"  parameterType="java.util.List">
-    delete FROM t_type WHERE id in
-    <foreach item="id" collection="ids" open="(" separator="," close=")">
-      #{id}
-    </foreach>
+  <select id="getById" resultMap="baseResultMap">
+    SELECT * FROM t_type WHERE id=#{id}
+  </select>
+
+  <delete id="delete"  parameterType="java.lang.Integer">
+    delete FROM t_type WHERE id =#{id}
   </delete>
 </mapper>

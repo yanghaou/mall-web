@@ -14,28 +14,28 @@ import java.util.List;
  * time :2019/4/9
  * function:
  */
-@RestController("/api/type")
+@RestController
 public class TypeController {
     @Autowired
     TypeService typeService;
 
-    @PostMapping
+    @PostMapping("/api/type")
     public Result save(@RequestBody TType type){
         return typeService.save(type);
     }
 
-    @PutMapping
+    @PutMapping("/api/type")
     public Result update(@RequestBody TType type){
         return typeService.update(type);
     }
 
-    @GetMapping
+    @GetMapping("/api/type")
     public Result getAll(){
         return typeService.getAll();
     }
 
-    @DeleteMapping
-    public Result delete(@RequestBody List<Integer> id){
+    @DeleteMapping("/api/type/{id}")
+    public Result delete(@PathVariable("id") Integer id){
         return typeService.delete(id);
     }
 }

@@ -6,26 +6,26 @@ package com.mall.util;
  * function:
  */
 public class Result {
-    private String code;
+    private int code;
     private String message;
     private Object data;
 
-    public Result(String code, String message) {
+    public Result(int code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public Result(String code, String message, Object data) {
+    public Result(int code, String message, Object data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

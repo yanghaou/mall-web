@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.TBrandsMapper">
-  <resultMap id="BaseResultMap" type="com.mall.model.TBrand">
+<mapper namespace="com.mall.dao.TBrandMapper">
+  <resultMap id="baseResultMap" type="com.mall.model.TBrand">
     <result column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="first_char" jdbcType="INTEGER" property="firstChar" />
@@ -14,81 +14,45 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <insert id="insert" parameterType="com.mall.model.TBrand">
-    insert into t_brands (id, name, first_char, 
+    insert into t_brand (`name`, first_char,
       order_num, brand_company, brand_logo, 
-      brand_big_icon, show, create_time, 
+      brand_big_icon, `show`, create_time,
       update_time)
     values (
-      #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{firstChar,jdbcType=INTEGER},
-      #{orderNum,jdbcType=INTEGER}, #{brandCompany,jdbcType=VARCHAR}, #{brandLogo,jdbcType=VARCHAR}, 
-      #{brandBigIcon,jdbcType=VARCHAR}, #{show,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{name,jdbcType=VARCHAR},
+      #{firstChar,jdbcType=INTEGER},
+      #{orderNum,jdbcType=INTEGER},
+      #{brandCompany,jdbcType=VARCHAR},
+      #{brandLogo,jdbcType=VARCHAR},
+      #{brandBigIcon,jdbcType=VARCHAR},
+      #{show,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.mall.model.TBrand">
-    insert into t_brands
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="firstChar != null">
-        first_char,
-      </if>
-      <if test="orderNum != null">
-        order_num,
-      </if>
-      <if test="brandCompany != null">
-        brand_company,
-      </if>
-      <if test="brandLogo != null">
-        brand_logo,
-      </if>
-      <if test="brandBigIcon != null">
-        brand_big_icon,
-      </if>
-      <if test="show != null">
-        show,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="firstChar != null">
-        #{firstChar,jdbcType=INTEGER},
-      </if>
-      <if test="orderNum != null">
-        #{orderNum,jdbcType=INTEGER},
-      </if>
-      <if test="brandCompany != null">
-        #{brandCompany,jdbcType=VARCHAR},
-      </if>
-      <if test="brandLogo != null">
-        #{brandLogo,jdbcType=VARCHAR},
-      </if>
-      <if test="brandBigIcon != null">
-        #{brandBigIcon,jdbcType=VARCHAR},
-      </if>
-      <if test="show != null">
-        #{show,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
+  <update id="update" parameterType="com.mall.model.TBrand">
+    update
+      t_brand
+    set
+      `name`=#{name},
+      first_char=#{firstChar},
+      order_num=#{orderNum},
+      brand_company=#{brandCompany},
+      brand_logo=#{brandLogo},
+      brand_big_icon=#{brandBigIcon},
+      `show`=#{show,jdbcType=INTEGER},
+      create_time=#{createTime},
+      update_time=#{updateTime}
+    where id =#{id}
+  </update>
+
+  <select id="getAll" resultMap="baseResultMap">
+    SELECT * FROM t_brand
+  </select>
+  <select id="getById" resultMap="baseResultMap">
+    SELECT * FROM t_brand WHERE id=#{id}
+  </select>
+
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete FROM t_brand WHERE id =#{id}
+  </delete>
 </mapper>

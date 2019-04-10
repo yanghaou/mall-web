@@ -1,6 +1,6 @@
 package com.mall.service;
 
-import com.mall.model.TType;
+import com.mall.model.TBrand;
 import com.mall.util.Result;
 
 /**
@@ -8,9 +8,9 @@ import com.mall.util.Result;
  * time :2019/4/9
  * function:
  */
-public interface TypeService {
-    Result save(TType type);
-    Result update(TType type);
+public interface TBrandService {
+    Result save(TBrand brand);
+    Result update(TBrand brand);
     Result getAll();
     Result delete(Integer id);
 }

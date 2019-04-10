@@ -7,7 +7,7 @@ public class TBrand {
 
     private String name;
 
-    private Integer firstChar;
+    private String firstChar;
 
     private Integer orderNum;
 
@@ -39,11 +39,11 @@ public class TBrand {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getFirstChar() {
+    public String getFirstChar() {
         return firstChar;
     }
 
-    public void setFirstChar(Integer firstChar) {
+    public void setFirstChar(String firstChar) {
         this.firstChar = firstChar;
     }
 

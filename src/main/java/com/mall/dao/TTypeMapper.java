@@ -13,5 +13,6 @@ public interface TTypeMapper {
     int update(TType record);
     int insertSelective(TType record);
     List<TType> getAll();
-    void delete(@Param("ids") List<Integer> ids);
+    TType getById(Integer id);
+    void delete(Integer id);
 }
