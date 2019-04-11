@@ -33,12 +33,12 @@
         and brand_id = #{brandId}
       </if>
       <if test="name != null and name !=''">
-        and name LIKE "%"#{name}"%"
+        and name LIKE '%${name}%'
       </if>
-      <if test="beginDate != null and beginDate != ''">
+      <if test="beginDate != null">
         AND update_time <![CDATA[>=]]> #{beginDate}
       </if>
-      <if test="endDate != null and endDate != ''">
+      <if test="endDate != null ">
         AND update_time <![CDATA[<=]]>#{endDate}
       </if>
   </select>
