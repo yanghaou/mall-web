@@ -6,8 +6,6 @@ import com.mall.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * author :y.hao
  * time :2019/4/9

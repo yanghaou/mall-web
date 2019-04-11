@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : utf-8
 
- Date: 04/10/2019 23:43:17 PM
+ Date: 04/11/2019 23:27:41 PM
 */
 
 SET NAMES utf8mb4;
@@ -58,11 +58,40 @@ CREATE TABLE `t_goods` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Table structure for `t_kind`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_kind`;
+CREATE TABLE `t_kind` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_propertity`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_propertity`;
+CREATE TABLE `t_propertity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `kind_id` int(11) DEFAULT NULL,
+  `multi_select` tinyint(4) DEFAULT NULL,
+  `value_list` varchar(255) DEFAULT NULL,
+  `order_num` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 --  Table structure for `t_type`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_type`;
 CREATE TABLE `t_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `order` tinyint(4) DEFAULT NULL,
   `unit` varchar(255) DEFAULT NULL,
