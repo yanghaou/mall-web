@@ -11,11 +11,35 @@
  Target Server Version : 50717
  File Encoding         : utf-8
 
- Date: 04/11/2019 23:27:41 PM
+ Date: 04/14/2019 21:30:32 PM
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `t_attribute`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_attribute`;
+CREATE TABLE `t_attribute` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `order_num` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_attribute_property_mapping`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_attribute_property_mapping`;
+CREATE TABLE `t_attribute_property_mapping` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `attribute_id` int(11) DEFAULT NULL,
+  `property_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_brand`
@@ -33,7 +57,7 @@ CREATE TABLE `t_brand` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_goods`
@@ -41,9 +65,9 @@ CREATE TABLE `t_brand` (
 DROP TABLE IF EXISTS `t_goods`;
 CREATE TABLE `t_goods` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
   `type_id` int(11) DEFAULT NULL,
   `brand_id` int(11) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
   `sub_head` varchar(255) DEFAULT NULL,
   `summary` varchar(255) DEFAULT NULL,
   `item_num` varchar(11) DEFAULT NULL,
@@ -55,35 +79,22 @@ CREATE TABLE `t_goods` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `t_kind`
+--  Table structure for `t_property`
 -- ----------------------------
-DROP TABLE IF EXISTS `t_kind`;
-CREATE TABLE `t_kind` (
+DROP TABLE IF EXISTS `t_property`;
+CREATE TABLE `t_property` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Table structure for `t_propertity`
--- ----------------------------
-DROP TABLE IF EXISTS `t_propertity`;
-CREATE TABLE `t_propertity` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `kind_id` int(11) DEFAULT NULL,
-  `multi_select` tinyint(4) DEFAULT NULL,
-  `value_list` varchar(255) DEFAULT NULL,
+  `properties` varchar(255) DEFAULT NULL,
+  `select_model` int(11) DEFAULT NULL,
   `order_num` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_type`
@@ -98,6 +109,6 @@ CREATE TABLE `t_type` (
   `create_time` date DEFAULT NULL,
   `update_time` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS = 1;
