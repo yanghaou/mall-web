@@ -53,7 +53,7 @@ public class FileServiceImpl implements FileService {
         try {
             file.transferTo(dest);
             //本地运行项目
-            String url="http://localhost:8080/image/"+fileName;
+            String url="/image/"+fileName;
             LOGGER.info(new StringBuilder().append("上传图片成功：").append(url).toString());
             return new Result(0,"success",url);
         } catch (IOException e) {

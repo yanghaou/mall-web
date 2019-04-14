@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mall.dao.TPropertyMapper">
+  <resultMap id="BaseResultMap" type="com.mall.model.TProperty">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="properties" jdbcType="VARCHAR" property="properties" />
+    <result column="select_model" jdbcType="INTEGER" property="selectModel" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, `properties`, select_model,order_num, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_property
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKeyIn" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_property
+    where id in
+    <foreach collection="list" item="id" index="index" open="(" separator="," close=")">
+      #{id}
+    </foreach> ORDER BY order_num DESC
+  </select>
+  <select id="selectByTProperty" resultMap="BaseResultMap" parameterType="com.mall.model.TProperty">
+    select
+    <include refid="Base_Column_List" />
+    from t_property
+    WHERE 1=1
+    <if test="id != null">
+      and id = #{id}
+    </if>
+    <if test="name != null and name !=''">
+      and name LIKE '%${name}%'
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_property
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.mall.model.TProperty">
+    insert into t_property (name, properties,
+      select_model,order_num, create_time, update_time
+      )
+    values (#{name,jdbcType=VARCHAR}, #{properties,jdbcType=VARCHAR},
+      #{selectModel,jdbcType=INTEGER},#{orderNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mall.model.TProperty">
+    insert into t_property
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="properties != null">
+        properties,
+      </if>
+      <if test="selectModel != null">
+        select_model,
+      </if>
+      <if test="orderNum != null">
+        order_num,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="properties != null">
+        #{properties,jdbcType=VARCHAR},
+      </if>
+      <if test="selectModel != null">
+        #{selectModel,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null">
+        #{order_num,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mall.model.TProperty">
+    update t_property
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="properties != null">
+        properties = #{properties,jdbcType=VARCHAR},
+      </if>
+      <if test="selectModel != null">
+        select_model = #{selectModel,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null">
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mall.model.TProperty">
+    update t_property
+    set name = #{name,jdbcType=VARCHAR},
+      properties = #{properties,jdbcType=VARCHAR},
+      select_model = #{selectModel,jdbcType=INTEGER},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

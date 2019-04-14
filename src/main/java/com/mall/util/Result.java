@@ -15,6 +15,10 @@ public class Result {
         this.message = message;
     }
 
+    public Result(Object data) {
+        this(0,"success",data);
+    }
+
     public Result(int code, String message, Object data) {
         this.code = code;
         this.message = message;

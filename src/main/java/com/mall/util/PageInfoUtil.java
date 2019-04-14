@@ -1,6 +1,5 @@
 package com.mall.util;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**

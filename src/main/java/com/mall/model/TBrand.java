@@ -1,5 +1,7 @@
 package com.mall.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class TBrand {
@@ -18,9 +20,9 @@ public class TBrand {
     private String brandBigIcon;
 
     private Integer show;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;
 
     public Integer getId() {

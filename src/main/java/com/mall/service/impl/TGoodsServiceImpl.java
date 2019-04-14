@@ -2,11 +2,13 @@ package com.mall.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.PageSerializable;
 import com.mall.dao.TGoodsMapper;
 import com.mall.model.TGoods;
 import com.mall.service.TGoodsService;
 import com.mall.util.DateUtil;
 import com.mall.util.PageInfoUtil;
+import com.mall.util.PageResult;
 import com.mall.util.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +62,8 @@ public class TGoodsServiceImpl implements TGoodsService{
         PageHelper.startPage(info.getPage(),info.getPageSize(),"update_time desc");
         List<TGoods> tGoods = tGoodsMapper.selectByTGoods(info.getInfo());
         PageInfo<TGoods> goods = new PageInfo<>(tGoods);
-        return new Result(0,"success",goods);
+        PageResult<TGoods> pageResult = new PageResult<>(goods.getTotal(),goods.getList());
+        return new Result(0,"success",pageResult);
     }
 
     public Result delete(Long id){
