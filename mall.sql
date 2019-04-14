@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : utf-8
 
- Date: 04/14/2019 21:30:32 PM
+ Date: 04/14/2019 23:13:42 PM
 */
 
 SET NAMES utf8mb4;
@@ -95,6 +95,17 @@ CREATE TABLE `t_property` (
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_sku`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_sku`;
+CREATE TABLE `t_sku` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `goods_id` bigint(20) DEFAULT NULL,
+  `param` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_type`
