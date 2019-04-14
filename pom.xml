@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent fdaotory -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>mall-web-admin</artifactId>
+	<version>1.0.0</version>
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -63,5 +63,12 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<!-- 使用aliyun maven -->
+	<repositories>
+		<repository>
+			<id>aliyun</id>
+			<name>aliyun</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
 </project>
