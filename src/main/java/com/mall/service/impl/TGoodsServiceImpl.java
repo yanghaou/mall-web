@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageSerializable;
 import com.mall.dao.TGoodsMapper;
 import com.mall.model.TGoods;
+import com.mall.model.TGoodsWithBLOBs;
 import com.mall.service.TGoodsService;
 import com.mall.util.DateUtil;
 import com.mall.util.PageInfoUtil;
@@ -34,19 +35,21 @@ public class TGoodsServiceImpl implements TGoodsService{
         return strFlag || numFlag;
     }
 
-    public Result save(TGoods goods){
-//        if (checkBase(goods)){
-//            return new Result(1,"必填参数不能为空！");
-//        }
-
+    public Result save(TGoodsWithBLOBs goods){
+        if (checkBase(goods)){
+            return new Result(1,"必填参数不能为空！");
+        }
+        //插入商品
         goods.setCreateTime(DateUtil.getCurrentDateTime());
         goods.setUpdateTime(DateUtil.getCurrentDateTime());
         tGoodsMapper.insert(goods);
+        //插入sku
+
         return new Result(0,"success");
     }
 
     @Override
-    public Result update(TGoods goods) {
+    public Result update(TGoodsWithBLOBs goods) {
         if (checkBase(goods) || goods.getId() == null){
             return new Result(1,"必填参数不能为空！");
         }

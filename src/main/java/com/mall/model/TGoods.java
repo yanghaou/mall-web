@@ -2,10 +2,11 @@ package com.mall.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class TGoods {
+public class TGoods implements Serializable{
     private Long id;
 
     private Integer typeId;

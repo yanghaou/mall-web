@@ -1,6 +1,7 @@
 package com.mall.dao;
 
 import com.mall.model.TGoods;
+import com.mall.model.TGoodsWithBLOBs;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,7 +11,7 @@ import java.util.List;
 public interface TGoodsMapper {
     int deleteByPrimaryKey(Long id);
 
-    int insert(TGoods record);
+    int insert(TGoodsWithBLOBs record);
 
     int insertSelective(TGoods record);
 
@@ -21,4 +22,6 @@ public interface TGoodsMapper {
     int updateByPrimaryKeySelective(TGoods record);
 
     int updateByPrimaryKey(TGoods record);
+
+    int updateByPrimaryKey(TGoodsWithBLOBs record);
 }

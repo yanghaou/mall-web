@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : utf-8
 
- Date: 04/14/2019 23:13:42 PM
+ Date: 04/15/2019 23:45:38 PM
 */
 
 SET NAMES utf8mb4;
@@ -39,7 +39,7 @@ CREATE TABLE `t_attribute_property_mapping` (
   `attribute_id` int(11) DEFAULT NULL,
   `property_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_brand`
@@ -76,10 +76,23 @@ CREATE TABLE `t_goods` (
   `stock` int(255) DEFAULT NULL,
   `weight` double DEFAULT NULL,
   `order_num` char(50) DEFAULT NULL,
+  `picture` text,
+  `detail` text,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_goods_sku`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_sku`;
+CREATE TABLE `t_goods_sku` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `goods_id` bigint(20) DEFAULT NULL,
+  `sku_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_property`
@@ -94,7 +107,7 @@ CREATE TABLE `t_property` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_sku`
@@ -102,7 +115,6 @@ CREATE TABLE `t_property` (
 DROP TABLE IF EXISTS `t_sku`;
 CREATE TABLE `t_sku` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `goods_id` bigint(20) DEFAULT NULL,
   `param` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

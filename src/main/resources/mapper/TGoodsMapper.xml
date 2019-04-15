@@ -3,82 +3,92 @@
 <mapper namespace="com.mall.dao.TGoodsMapper">
   <resultMap id="BaseResultMap" type="com.mall.model.TGoods">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type_id" jdbcType="INTEGER" property="typeId" />
     <result column="brand_id" jdbcType="INTEGER" property="brandId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sub_head" jdbcType="VARCHAR" property="subHead" />
     <result column="summary" jdbcType="VARCHAR" property="summary" />
-    <result column="item_num" jdbcType="INTEGER" property="itemNum" />
+    <result column="item_num" jdbcType="VARCHAR" property="itemNum" />
     <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
-    <result column="stock" jdbcType="VARCHAR" property="stock" />
+    <result column="market_price" jdbcType="VARCHAR" property="marketPrice" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
     <result column="weight" jdbcType="DOUBLE" property="weight" />
     <result column="order_num" jdbcType="CHAR" property="orderNum" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.mall.model.TGoodsWithBLOBs">
+    <result column="picture" jdbcType="LONGVARCHAR" property="picture" />
+    <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
+  </resultMap>
   <sql id="Base_Column_List">
-    id, type_id, brand_id, name, sub_head, summary, item_num, price, market_price, stock, 
+    id, name, type_id, brand_id, sub_head, summary, item_num, price, market_price, stock,
     weight, order_num, create_time, update_time
   </sql>
-  <select id="selectByTGoods" resultMap="BaseResultMap" parameterType="com.mall.model.TGoods">
+  <sql id="Blob_Column_List">
+    picture, detail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     select
-      <include refid="Base_Column_List" />
-    from t_goods
-    WHERE 1=1
-      <if test="typeId != null">
-        and type_id = #{typeId}
-      </if>
-      <if test="brandId != null">
-        and brand_id = #{brandId}
-      </if>
-      <if test="name != null and name !=''">
-        and name LIKE '%${name}%'
-      </if>
-      <if test="beginDate != null">
-        AND update_time <![CDATA[>=]]> #{beginDate}
-      </if>
-      <if test="endDate != null ">
-        AND update_time <![CDATA[<=]]>#{endDate}
-      </if>
-  </select>
-
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from t_goods
     where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByTGoods" resultMap="BaseResultMap" parameterType="com.mall.model.TGoods">
+    select
+    <include refid="Base_Column_List" />
+    from t_goods
+    WHERE 1=1
+    <if test="typeId != null">
+      and type_id = #{typeId}
+    </if>
+    <if test="brandId != null">
+      and brand_id = #{brandId}
+    </if>
+    <if test="name != null and name !=''">
+      and name LIKE '%${name}%'
+    </if>
+    <if test="beginDate != null">
+      AND update_time <![CDATA[>=]]> #{beginDate}
+    </if>
+    <if test="endDate != null ">
+      AND update_time <![CDATA[<=]]>#{endDate}
+    </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_goods
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.mall.model.TGoods">
-    insert into t_goods (type_id, brand_id,
-      name, sub_head, summary, 
-      item_num, price, market_price, 
-      stock, weight, order_num, 
-      create_time, update_time)
-    values ( #{typeId,jdbcType=INTEGER}, #{brandId,jdbcType=INTEGER},
-      #{name,jdbcType=VARCHAR}, #{subHead,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
-      #{itemNum,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{marketPrice,jdbcType=VARCHAR}, 
-      #{stock,jdbcType=VARCHAR}, #{weight,jdbcType=DOUBLE}, #{orderNum,jdbcType=CHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.mall.model.TGoodsWithBLOBs">
+    insert into t_goods (id, name, type_id,
+    brand_id, sub_head, summary,
+    item_num, price, market_price,
+    stock, weight, order_num,
+    create_time, update_time, picture,
+    detail)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER},
+    #{brandId,jdbcType=INTEGER}, #{subHead,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR},
+    #{itemNum,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{marketPrice,jdbcType=VARCHAR},
+    #{stock,jdbcType=INTEGER}, #{weight,jdbcType=DOUBLE}, #{orderNum,jdbcType=CHAR},
+    #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{picture,jdbcType=LONGVARCHAR},
+    #{detail,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.mall.model.TGoods">
+  <insert id="insertSelective" parameterType="com.mall.model.TGoodsWithBLOBs">
     insert into t_goods
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="name != null">
+        name,
       </if>
       <if test="typeId != null">
         type_id,
       </if>
       <if test="brandId != null">
         brand_id,
-      </if>
-      <if test="name != null">
-        name,
       </if>
       <if test="subHead != null">
         sub_head,
@@ -110,19 +120,25 @@
       <if test="updateTime != null">
         update_time,
       </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="typeId != null">
         #{typeId,jdbcType=INTEGER},
       </if>
       <if test="brandId != null">
         #{brandId,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
       </if>
       <if test="subHead != null">
         #{subHead,jdbcType=VARCHAR},
@@ -131,7 +147,7 @@
         #{summary,jdbcType=VARCHAR},
       </if>
       <if test="itemNum != null">
-        #{itemNum,jdbcType=INTEGER},
+        #{itemNum,jdbcType=VARCHAR},
       </if>
       <if test="price != null">
         #{price,jdbcType=DECIMAL},
@@ -140,7 +156,7 @@
         #{marketPrice,jdbcType=VARCHAR},
       </if>
       <if test="stock != null">
-        #{stock,jdbcType=VARCHAR},
+        #{stock,jdbcType=INTEGER},
       </if>
       <if test="weight != null">
         #{weight,jdbcType=DOUBLE},
@@ -154,19 +170,25 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="picture != null">
+        #{picture,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mall.model.TGoods">
+  <update id="updateByPrimaryKeySelective" parameterType="com.mall.model.TGoodsWithBLOBs">
     update t_goods
     <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
       <if test="typeId != null">
         type_id = #{typeId,jdbcType=INTEGER},
       </if>
       <if test="brandId != null">
         brand_id = #{brandId,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="subHead != null">
         sub_head = #{subHead,jdbcType=VARCHAR},
@@ -175,7 +197,7 @@
         summary = #{summary,jdbcType=VARCHAR},
       </if>
       <if test="itemNum != null">
-        item_num = #{itemNum,jdbcType=INTEGER},
+        item_num = #{itemNum,jdbcType=VARCHAR},
       </if>
       <if test="price != null">
         price = #{price,jdbcType=DECIMAL},
@@ -184,7 +206,7 @@
         market_price = #{marketPrice,jdbcType=VARCHAR},
       </if>
       <if test="stock != null">
-        stock = #{stock,jdbcType=VARCHAR},
+        stock = #{stock,jdbcType=INTEGER},
       </if>
       <if test="weight != null">
         weight = #{weight,jdbcType=DOUBLE},
@@ -198,23 +220,49 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mall.model.TGoodsWithBLOBs">
+    update t_goods
+    set name = #{name,jdbcType=VARCHAR},
+    type_id = #{typeId,jdbcType=INTEGER},
+    brand_id = #{brandId,jdbcType=INTEGER},
+    sub_head = #{subHead,jdbcType=VARCHAR},
+    summary = #{summary,jdbcType=VARCHAR},
+    item_num = #{itemNum,jdbcType=VARCHAR},
+    price = #{price,jdbcType=DECIMAL},
+    market_price = #{marketPrice,jdbcType=VARCHAR},
+    stock = #{stock,jdbcType=INTEGER},
+    weight = #{weight,jdbcType=DOUBLE},
+    order_num = #{orderNum,jdbcType=CHAR},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    picture = #{picture,jdbcType=LONGVARCHAR},
+    detail = #{detail,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mall.model.TGoods">
     update t_goods
-    set type_id = #{typeId,jdbcType=INTEGER},
-      brand_id = #{brandId,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      sub_head = #{subHead,jdbcType=VARCHAR},
-      summary = #{summary,jdbcType=VARCHAR},
-      item_num = #{itemNum,jdbcType=INTEGER},
-      price = #{price,jdbcType=DECIMAL},
-      market_price = #{marketPrice,jdbcType=VARCHAR},
-      stock = #{stock,jdbcType=VARCHAR},
-      weight = #{weight,jdbcType=DOUBLE},
-      order_num = #{orderNum,jdbcType=CHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    set name = #{name,jdbcType=VARCHAR},
+    type_id = #{typeId,jdbcType=INTEGER},
+    brand_id = #{brandId,jdbcType=INTEGER},
+    sub_head = #{subHead,jdbcType=VARCHAR},
+    summary = #{summary,jdbcType=VARCHAR},
+    item_num = #{itemNum,jdbcType=VARCHAR},
+    price = #{price,jdbcType=DECIMAL},
+    market_price = #{marketPrice,jdbcType=VARCHAR},
+    stock = #{stock,jdbcType=INTEGER},
+    weight = #{weight,jdbcType=DOUBLE},
+    order_num = #{orderNum,jdbcType=CHAR},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
