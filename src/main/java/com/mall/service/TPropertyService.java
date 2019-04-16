@@ -14,8 +14,8 @@ import java.util.List;
 public interface TPropertyService {
     Result save(TProperty property);
     Result update(TProperty property);
+    Result getByProperty(TProperty property);
     Result getByIdsIn(List<Integer> ids);
-    Result getByPage(PageInfoUtil<TProperty> info);
     Result delete(Integer id);
     Result getAll();
 }

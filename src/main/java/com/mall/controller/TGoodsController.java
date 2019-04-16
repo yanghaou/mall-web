@@ -1,6 +1,7 @@
 package com.mall.controller;
 
 import com.mall.model.TGoods;
+import com.mall.model.TGoodsWithBLOBs;
 import com.mall.service.TGoodsService;
 import com.mall.util.PageInfoUtil;
 import com.mall.util.Result;
@@ -21,12 +22,12 @@ public class TGoodsController {
     TGoodsService goodsService;
 
     @PostMapping("/api/goods")
-    public Result save(@RequestBody TGoods goods){
+    public Result save(@RequestBody TGoodsWithBLOBs goods){
         return goodsService.save(goods);
     }
 
     @PutMapping("/api/goods")
-    public Result update(@RequestBody TGoods goods){
+    public Result update(@RequestBody TGoodsWithBLOBs goods){
         return goodsService.update(goods);
     }
 

@@ -5,16 +5,19 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="properties" jdbcType="VARCHAR" property="properties" />
+    <result column="property_type" jdbcType="INTEGER" property="propertyType" />
+    <result column="need_pic" jdbcType="INTEGER" property="needPic" />
+    <result column="attribute_id" jdbcType="INTEGER" property="attributeId" />
     <result column="select_model" jdbcType="INTEGER" property="selectModel" />
     <result column="order_num" jdbcType="INTEGER" property="orderNum" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, `name`, `properties`, select_model,order_num, create_time, update_time
+    id, attribute_id,property_type,need_pic,`name`, `properties`, select_model,order_num, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_property
     where id = #{id,jdbcType=INTEGER}
@@ -36,8 +39,14 @@
     <if test="id != null">
       and id = #{id}
     </if>
+    <if test="attributeId != null">
+      and attribute_id = #{attributeId}
+    </if>
+    <if test="propertyType != null">
+      and property_type = #{propertyType}
+    </if>
     <if test="name != null and name !=''">
-      and name LIKE '%${name}%'
+      and `name` LIKE '%${name}%'
     </if>
   </select>
   
@@ -46,93 +55,25 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.mall.model.TProperty">
-    insert into t_property (name, properties,
-      select_model,order_num, create_time, update_time
+    insert into t_property (
+      attribute_id,property_type,need_pic,`name`, properties,select_model,order_num, create_time, update_time
       )
-    values (#{name,jdbcType=VARCHAR}, #{properties,jdbcType=VARCHAR},
+    values (
+      #{attributeId},#{propertyType},#{needPic},#{name,jdbcType=VARCHAR}, #{properties,jdbcType=VARCHAR},
       #{selectModel,jdbcType=INTEGER},#{orderNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.mall.model.TProperty">
-    insert into t_property
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="properties != null">
-        properties,
-      </if>
-      <if test="selectModel != null">
-        select_model,
-      </if>
-      <if test="orderNum != null">
-        order_num,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="properties != null">
-        #{properties,jdbcType=VARCHAR},
-      </if>
-      <if test="selectModel != null">
-        #{selectModel,jdbcType=INTEGER},
-      </if>
-      <if test="orderNum != null">
-        #{order_num,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mall.model.TProperty">
-    update t_property
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="properties != null">
-        properties = #{properties,jdbcType=VARCHAR},
-      </if>
-      <if test="selectModel != null">
-        select_model = #{selectModel,jdbcType=INTEGER},
-      </if>
-      <if test="orderNum != null">
-        order_num = #{orderNum,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
   <update id="updateByPrimaryKey" parameterType="com.mall.model.TProperty">
     update t_property
-    set name = #{name,jdbcType=VARCHAR},
-      properties = #{properties,jdbcType=VARCHAR},
-      select_model = #{selectModel,jdbcType=INTEGER},
-      order_num = #{orderNum,jdbcType=INTEGER},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
+    set
+      attribute_id = #{attributeId},
+      property_type = #{propertyType},
+      need_pic = #{needPic},
+      `name` = #{name},
+      properties = #{properties},
+      select_model = #{selectModel},
+      order_num = #{orderNum},
+      update_time = #{updateTime}
+    where id = #{id}
   </update>
 </mapper>

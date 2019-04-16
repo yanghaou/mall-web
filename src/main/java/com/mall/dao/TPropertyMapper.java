@@ -11,15 +11,11 @@ public interface TPropertyMapper {
 
     int insert(TProperty property);
 
-    int insertSelective(TProperty property);
-
     List<TProperty> selectByPrimaryKeyIn(@Param("list") List<Integer> id);
 
     TProperty selectByPrimaryKey(Integer id);
     
     List<TProperty> selectByTProperty(TProperty property);
-
-    int updateByPrimaryKeySelective(TProperty property);
 
     int updateByPrimaryKey(TProperty property);
 }

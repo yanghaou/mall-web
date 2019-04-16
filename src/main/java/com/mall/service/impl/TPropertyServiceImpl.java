@@ -1,7 +1,9 @@
 package com.mall.service.impl;
 
+import com.github.pagehelper.Constant;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.mall.constant.ConstantParam;
 import com.mall.dao.TPropertyMapper;
 import com.mall.model.TProperty;
 import com.mall.service.TPropertyService;
@@ -13,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,14 +29,17 @@ public class TPropertyServiceImpl implements TPropertyService{
     TPropertyMapper tPropertyMapper;
 
     public boolean checkBase(TProperty property){
-        return StringUtils.isAnyEmpty(property.getName(),property.getProperties()) || property.getOrderNum() == null;
+        return StringUtils.isAnyEmpty(property.getName())
+                || property.getPropertyList() == null
+                || property.getOrderNum() == null
+                || property.getSelectModel() == null;
     }
 
     public Result save(TProperty property){
         if (checkBase(property)){
             return new Result(1,"必填参数不能为空！");
         }
-
+        property.setProperties(String.join(ConstantParam.COMA,property.getPropertyList()));
         property.setCreateTime(DateUtil.getCurrentDateTime());
         property.setUpdateTime(DateUtil.getCurrentDateTime());
         tPropertyMapper.insert(property);
@@ -42,23 +48,26 @@ public class TPropertyServiceImpl implements TPropertyService{
 
     @Override
     public Result update(TProperty property) {
-        if (checkBase(property) || property.getId() == null){
+        if (checkBase(property)){
             return new Result(1,"必填参数不能为空！");
         }
         if (tPropertyMapper.selectByPrimaryKey(property.getId()) == null){
             return new Result(1,"品牌不存在！");
         }
+        property.setProperties(String.join(ConstantParam.COMA,property.getPropertyList()));
         property.setUpdateTime(DateUtil.getCurrentDateTime());
         tPropertyMapper.updateByPrimaryKey(property);
         return new Result(0,"success");
     }
 
-    public Result getByPage(PageInfoUtil<TProperty> info){
-        PageHelper.startPage(info.getPage(),info.getPageSize(),"update_time desc");
-        List<TProperty> tProperty = tPropertyMapper.selectByTProperty(info.getInfo());
-        PageInfo<TProperty> property = new PageInfo<>(tProperty);
-        PageResult<TProperty> pageResult = new PageResult<>(property.getTotal(),property.getList());
-        return new Result(0,"success",pageResult);
+    public Result getByProperty(TProperty property){
+        PageHelper.orderBy("update_time desc");
+        List<TProperty> tProperty = tPropertyMapper.selectByTProperty(property);
+        tProperty.forEach(t->{
+            t.setPropertyList(Arrays.asList(t.getProperties().split(ConstantParam.COMA)));
+            t.setProperties(null);
+        });
+        return new Result(0,"success",tProperty);
     }
 
     @Override
@@ -67,7 +76,12 @@ public class TPropertyServiceImpl implements TPropertyService{
     }
 
     public Result getAll(){
-        return new Result(tPropertyMapper.selectByTProperty(null));
+        List<TProperty> tProperty = tPropertyMapper.selectByTProperty(null);
+        tProperty.forEach(t->{
+            t.setPropertyList(Arrays.asList(t.getProperties().split(ConstantParam.COMA)));
+            t.setProperties(null);
+        });
+        return new Result(tProperty);
     }
 
     public Result delete(Integer id){

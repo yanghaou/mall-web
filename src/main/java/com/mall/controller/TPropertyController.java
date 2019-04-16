@@ -27,24 +27,18 @@ public class TPropertyController {
     }
 
     @GetMapping("/api/property")
-    public Result getAll(@RequestParam(value = "id",required = false) Integer[] id){
-        if (id != null){
-            return propertyService.getByIdsIn(Arrays.asList(id));
-        }
-        return propertyService.getAll();
+    public Result getByProperty(
+            @RequestParam(value = "attributeId",required = false) Integer attributeId,
+            @RequestParam(value = "propertyType",required = false) Integer propertyType){
+        TProperty property = new TProperty();
+        property.setAttributeId(attributeId);
+        property.setPropertyType(propertyType);
+        return propertyService.getByProperty(property);
     }
 
     @PutMapping("/api/property")
     public Result update(@RequestBody TProperty property){
         return propertyService.update(property);
-    }
-
-    @PostMapping("/api/property/list")
-    public Result getByPage(@Valid @RequestBody PageInfoUtil<TProperty> property, BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
-            return new Result(1,"参数异常",null);
-        }
-        return propertyService.getByPage(property);
     }
 
     @DeleteMapping("/api/property/{id}")
