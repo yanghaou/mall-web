@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : utf-8
 
- Date: 04/15/2019 23:45:38 PM
+ Date: 04/17/2019 00:11:44 AM
 */
 
 SET NAMES utf8mb4;
@@ -24,22 +24,10 @@ DROP TABLE IF EXISTS `t_attribute`;
 CREATE TABLE `t_attribute` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
-  `order_num` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Table structure for `t_attribute_property_mapping`
--- ----------------------------
-DROP TABLE IF EXISTS `t_attribute_property_mapping`;
-CREATE TABLE `t_attribute_property_mapping` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `attribute_id` int(11) DEFAULT NULL,
-  `property_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_brand`
@@ -91,6 +79,9 @@ CREATE TABLE `t_goods_sku` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `goods_id` bigint(20) DEFAULT NULL,
   `sku_id` bigint(20) DEFAULT NULL,
+  `price` decimal(10,0) DEFAULT NULL,
+  `stock` varchar(255) DEFAULT NULL,
+  `stock_alarm` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -101,13 +92,16 @@ DROP TABLE IF EXISTS `t_property`;
 CREATE TABLE `t_property` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
+  `property_type` tinyint(1) DEFAULT NULL,
+  `attribute_id` int(11) DEFAULT NULL,
+  `need_pic` tinyint(1) DEFAULT NULL,
   `properties` varchar(255) DEFAULT NULL,
   `select_model` int(11) DEFAULT NULL,
   `order_num` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_sku`
@@ -116,6 +110,17 @@ DROP TABLE IF EXISTS `t_sku`;
 CREATE TABLE `t_sku` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `param` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_spu`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_spu`;
+CREATE TABLE `t_spu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `spu` text,
+  `goods_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
