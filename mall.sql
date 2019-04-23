@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : utf-8
 
- Date: 04/17/2019 00:11:44 AM
+ Date: 04/23/2019 23:10:33 PM
 */
 
 SET NAMES utf8mb4;
@@ -30,6 +30,13 @@ CREATE TABLE `t_attribute` (
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Records of `t_attribute`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_attribute` VALUES ('11', '衣服', '2019-04-16 10:04:07', '2019-04-16 10:04:07');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `t_brand`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_brand`;
@@ -46,6 +53,13 @@ CREATE TABLE `t_brand` (
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_brand`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_brand` VALUES ('4', '小米', 'M', '1', '小米', '/image/25f1ca4a-faa7-43dd-b3c6-8ed0d340f237.png', '/image/94203984-30eb-456f-8e27-ba64b987fc85.png', '1', '2019-04-12 08:17:45', '2019-04-23 09:15:30');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_goods`
@@ -70,6 +84,13 @@ CREATE TABLE `t_goods` (
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_goods`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_goods` VALUES ('6', '小米9手机', '1', '1', '小米9,值得拥有', 'cc', 'er45', '1', '1.2', '123', '3.21', '1', null, null, '2019-04-14 01:55:58', '2019-04-14 01:55:58');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_goods_sku`
@@ -102,6 +123,13 @@ CREATE TABLE `t_property` (
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_property`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_property` VALUES ('11', '颜色', '1', '11', '1', '红色,黑色,黄色', '2', '1', '2019-04-16 10:12:28', '2019-04-16 10:12:28'), ('14', '尺寸', '1', '11', '0', 'X,XX,XL,XXL', '1', '2', '2019-04-16 10:16:23', '2019-04-23 09:23:05'), ('15', '屏幕尺寸', '2', '11', '0', '5.0,6.0,7.0', '1', '1', '2019-04-16 10:20:33', '2019-04-16 10:20:33'), ('16', '网络', '1', '0', '0', '4G,5G', '1', '2', '2019-04-16 10:21:34', '2019-04-16 10:21:34'), ('17', '网络', '2', '11', '0', '4G,5G', '1', '2', '2019-04-16 10:22:18', '2019-04-16 10:22:18'), ('18', '系统', '1', '0', '0', 'Andriod,IOS', '1', '3', '2019-04-16 10:22:58', '2019-04-16 10:22:58'), ('19', '系统', '2', '11', '0', 'Andriod,IOS', '1', '3', '2019-04-16 10:28:25', '2019-04-16 10:28:25');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_sku`
@@ -138,5 +166,12 @@ CREATE TABLE `t_type` (
   `update_time` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_type`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_type` VALUES ('5', null, '蔬菜', '2', '斤', '2019-04-12', '2019-04-12');
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
