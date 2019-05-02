@@ -13,7 +13,8 @@ import java.io.InputStream;
 public class ImageTool {
     /**
      * 获取图片宽度
-     * @param file  图片文件
+     *
+     * @param file 图片文件
      * @return 宽度
      */
     public static int getImgWidth(File file) {
@@ -34,7 +35,8 @@ public class ImageTool {
 
     /**
      * 获取图片高度
-     * @param file  图片文件
+     *
+     * @param file 图片文件
      * @return 高度
      */
     public static int getImgHeight(File file) {

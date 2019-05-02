@@ -19,7 +19,7 @@ public class FileController {
     FileService fileService;
 
     @PostMapping("/file/upload")
-    public Result upload(@RequestParam("file") MultipartFile file){
+    public Result upload(@RequestParam("file") MultipartFile file) {
         return fileService.uploadFile(file);
     }
 }

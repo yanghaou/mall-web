@@ -1,11 +1,5 @@
 package com.mall.config;
 
-/**
- * author :y.hao
- * time :2019/4/11
- * function:
- */
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -21,7 +15,7 @@ public class MyWebAppConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(imagePath+"/**")
-                .addResourceLocations("file:"+imagePath+"/");
+        registry.addResourceHandler(imagePath + "/**")
+                .addResourceLocations("file:" + imagePath + "/");
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
  * time :2019/4/12
  * function:
  */
-public class PageResult<T> implements Serializable{
+public class PageResult<T> implements Serializable {
     private long total;
     private List<T> list;
 

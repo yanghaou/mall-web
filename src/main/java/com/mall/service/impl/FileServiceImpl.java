@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -26,9 +24,9 @@ public class FileServiceImpl implements FileService {
     @Value("${image.path}")
     private String imagePath;
 
-    public Result uploadFile(MultipartFile file){
+    public Result uploadFile(MultipartFile file) {
         if (file.isEmpty()) {
-            return new Result(-1,"文件不能为空！",null);
+            return new Result(-1, "文件不能为空！", null);
         }
 
         //获取上传图片的宽高,用来做图片大小限制
@@ -46,19 +44,19 @@ public class FileServiceImpl implements FileService {
         String fileName = file.getOriginalFilename();  // 文件名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
         fileName = UUID.randomUUID() + suffixName; // 新文件名
-        File dest = new File(new File(imagePath).getAbsolutePath()+"/"+fileName);
+        File dest = new File(new File(imagePath).getAbsolutePath() + "/" + fileName);
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();
         }
         try {
             file.transferTo(dest);
             //本地运行项目
-            String url="/image/"+fileName;
+            String url = "/image/" + fileName;
             LOGGER.info(new StringBuilder().append("上传图片成功：").append(url).toString());
-            return new Result(0,"success",url);
+            return new Result(0, "success", url);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new Result(-1,"failed",null);
+        return new Result(-1, "failed", null);
     }
 }
