@@ -34,7 +34,7 @@ public class AttributeValue implements Serializable {
     private String value;
     //排序
     @NotNull(message = "属性值排序不能为空")
-    private Integer orderNum;
+    private Byte orderNum;
     private Date createTime;
     private Date updateTime;
 }

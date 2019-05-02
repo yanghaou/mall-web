@@ -35,7 +35,7 @@ public class Attribute implements Serializable {
     private Byte sale;
     //排序
     @NotNull(message = "属性排序不能为空")
-    private Integer orderNum;
+    private Byte orderNum;
     private Date createTime;
     private Date updateTime;
 }

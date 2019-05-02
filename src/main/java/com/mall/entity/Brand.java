@@ -25,7 +25,7 @@ public class Brand implements Serializable {
     @NotEmpty(message = "品牌首字母不能为空")
     private String firstChar;
     @NotNull(message = "品牌排序不能为空")
-    private Integer orderNum;
+    private Byte orderNum;
     private String brandCompany;
     @NotEmpty(message = "品牌图标不能为空")
     private String brandLogo;
