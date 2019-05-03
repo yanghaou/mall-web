@@ -34,7 +34,7 @@ public class BrandServiceImpl implements BrandService {
 
     public Result save(Brand brand) {
         //新增
-        if (brand.getId() == null || brand.getId() < 0) {
+        if (brand.getId() == null || brand.getId() < 1) {
             brand.setCreateTime(DateUtil.getCurrentDateTime());
             brand.setUpdateTime(DateUtil.getCurrentDateTime());
             brandRepository.save(brand);

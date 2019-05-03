@@ -1,5 +1,9 @@
 package com.mall.util;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.NotNull;
 
 /**
@@ -7,6 +11,9 @@ import javax.validation.constraints.NotNull;
  * time :2019/4/10
  * function:
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PageInfoUtil<T> {
     @NotNull
     private Integer page;
@@ -14,27 +21,4 @@ public class PageInfoUtil<T> {
     private Integer pageSize;
     T Info;
 
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public T getInfo() {
-        return Info;
-    }
-
-    public void setInfo(T info) {
-        Info = info;
-    }
 }

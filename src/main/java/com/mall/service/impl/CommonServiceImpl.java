@@ -13,7 +13,8 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public Result checkParam(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            String msg = bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(","));
+            String msg = bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.joining(","));
             return new Result(-1, msg);
         }
         return null;

@@ -32,7 +32,7 @@ public class AttributeServiceImpl implements AttributeService {
             return new Result(1, "所属分类不存在");
         }
         //新增
-        if (attribute.getId() == null || attribute.getId() < 0) {
+        if (attribute.getId() == null || attribute.getId() < 1) {
             attribute.setCreateTime(DateUtil.getCurrentDateTime());
             attribute.setUpdateTime(DateUtil.getCurrentDateTime());
             attributeRepository.save(attribute);

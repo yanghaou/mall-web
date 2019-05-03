@@ -33,7 +33,7 @@ public class AttributeValueServiceImpl implements AttributeValueService {
             return new Result(1, "属性不存在");
         }
         //新增
-        if (attributeValue.getId() == null || attributeValue.getId() < 0) {
+        if (attributeValue.getId() == null || attributeValue.getId() < 1) {
             attributeValue.setCreateTime(DateUtil.getCurrentDateTime());
             attributeValue.setUpdateTime(DateUtil.getCurrentDateTime());
             attributeValueRepository.save(attributeValue);

@@ -1,0 +1,30 @@
+package com.mall.dto;
+
+import lombok.Builder;
+import lombok.Data;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.List;
+
+@Data
+@Builder
+public class ProductVO implements Serializable {
+    private Long id;
+    @NotEmpty(message = "商品名称不能为空")
+    private String name;
+    @NotNull(message = "商品分类不能为空")
+    private Long categoryId;
+    @NotNull(message = "商品状态不能为空")
+    private Byte status;
+    private Long brandId;
+    private String subHead;
+    private String detail;
+    @NotNull(message = "商品排序不能为空")
+    private Byte orderNum;
+    @NotEmpty(message = "商品单位不能为空")
+    private String unit;
+    @NotNull(message = "商品图片不能为空")
+    private List<String> pictureList;
+}

@@ -31,7 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Result save(Category category) {
         //新增
-        if (category.getId() == null || category.getId() < 0) {
+        if (category.getId() == null || category.getId() < 1) {
             category.setCreateTime(DateUtil.getCurrentDateTime());
             category.setUpdateTime(DateUtil.getCurrentDateTime());
             categoryRepository.save(category);
