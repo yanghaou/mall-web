@@ -1,6 +1,7 @@
 package com.mall.service;
 
 import com.mall.entity.Category;
+import com.mall.util.PageInfoUtil;
 import com.mall.util.Result;
 
 /**
@@ -14,6 +15,8 @@ public interface CategoryService {
     Result getAll();
 
     Result queryByCategory(Category category);
+
+    Result queryByCategoryWithPage(PageInfoUtil<Category> vo);
 
     Result delete(Long id);
 }

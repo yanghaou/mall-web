@@ -62,9 +62,6 @@ public class ProductServiceImpl implements ProductService {
         }
         Product product = new Product();
         BeanUtils.copyProperties(vo,product);
-        //图片用逗号分开
-        String s = vo.getPictureList().stream().collect(Collectors.joining(","));
-        product.setPicture(s);
         //新增商品
         if (product.getId() == null || product.getId() < 1) {
             product.setCreateTime(DateUtil.getCurrentDateTime());

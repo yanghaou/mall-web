@@ -2,15 +2,17 @@ package com.mall.service.impl;
 
 import com.mall.entity.Attribute;
 import com.mall.entity.AttributeValue;
-import com.mall.entity.Brand;
+import com.mall.entity.AttributeValue;
 import com.mall.repository.AttributeRepository;
 import com.mall.repository.AttributeValueRepository;
 import com.mall.service.AttributeValueService;
-import com.mall.util.BeanUtil;
-import com.mall.util.DateUtil;
-import com.mall.util.Result;
+import com.mall.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
@@ -74,11 +76,37 @@ public class AttributeValueServiceImpl implements AttributeValueService {
                 predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("value"),"%"+attributeValue.getValue()+"%")));
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
-
         });
-        return new Result(0, "success", attributeValues);
+        return new Result(0, "success", new PageResult<>(0,attributeValues));
     }
 
+    @Override
+    public Result queryByAttributeValueWithPage(PageInfoUtil<AttributeValue> vo){
+        Pageable pageable = PageRequest.
+                of(vo.getPage(),vo.getPageSize(), Sort.by(Sort.Direction.DESC,"updateTime"));
+        Page<AttributeValue> page = attributeValueRepository.findAll((root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            AttributeValue attributeValue = vo.getInfo();
+            if (attributeValue != null) {
+                if (attributeValue.getId() != null) {
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("id"), attributeValue.getId())));
+                }
+                if (attributeValue.getAttributeId() != null) {
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("attributeId"), attributeValue.getAttributeId())));
+                }
+                if (StringUtils.isNotEmpty(attributeValue.getValue())){
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("value"),"%"+attributeValue.getValue()+"%")));
+                }
+            }
+            return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+
+        },pageable);
+
+        PageResult<AttributeValue> pageResult = new PageResult<>(page.getTotalElements(),page.getContent());
+        return new Result(0, "success", pageResult);
+
+    }
+    
     @Override
     public Result delete(Long id) {
         if (!attributeValueRepository.existsById(id)) {

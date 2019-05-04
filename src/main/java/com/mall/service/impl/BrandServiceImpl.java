@@ -2,15 +2,18 @@ package com.mall.service.impl;
 
 import com.mall.entity.Brand;
 import com.mall.entity.Category;
+import com.mall.entity.Product;
 import com.mall.repository.BrandRepository;
 import com.mall.service.BrandService;
-import com.mall.util.BeanUtil;
-import com.mall.util.DateUtil;
-import com.mall.util.Result;
+import com.mall.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
@@ -75,7 +78,32 @@ public class BrandServiceImpl implements BrandService {
             return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 
         });
-        return new Result(0, "success", brands);
+        return new Result(0, "success", new PageResult<>(0,brands));
+    }
+
+    @Override
+    public Result queryByBrandWithPage(PageInfoUtil<Brand> vo){
+
+        Pageable pageable = PageRequest.
+                of(vo.getPage(),vo.getPageSize(), Sort.by(Sort.Direction.DESC,"updateTime"));
+        Page<Brand> page = brandRepository.findAll((root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            Brand brand = vo.getInfo();
+            if (brand != null) {
+                if (brand.getId() != null) {
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("id"), brand.getId())));
+                }
+                if (StringUtils.isNotEmpty(brand.getName())) {
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("name"), "%" + brand.getName() + "%")));
+                }
+            }
+            return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+
+        },pageable);
+
+        PageResult<Brand> pageResult = new PageResult<>(page.getTotalElements(),page.getContent());
+        return new Result(0, "success", pageResult);
+
     }
 
     public Result delete(Long id) {

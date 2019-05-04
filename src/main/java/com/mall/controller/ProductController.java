@@ -46,7 +46,7 @@ public class ProductController {
         Product product = Product.builder()
                 .id(id).name(name).categoryId(categoryId).brandId(brandId).build();
 
-        PageInfoUtil<Product> pageInfoUtil = new PageInfoUtil<>(page,pageSize,product);
+        PageInfoUtil<Product> pageInfoUtil = new PageInfoUtil<>(page-1<0?0:page-1,pageSize,product);
         return productService.queryByProduct(pageInfoUtil);
     }
 

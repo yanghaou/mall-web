@@ -2,8 +2,10 @@ package com.mall.controller;
 
 import com.mall.entity.Attribute;
 import com.mall.entity.AttributeValue;
+import com.mall.entity.Brand;
 import com.mall.service.AttributeValueService;
 import com.mall.service.CommonService;
+import com.mall.util.PageInfoUtil;
 import com.mall.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -30,9 +32,15 @@ public class AttributeValueController {
 
     @GetMapping("/api/attributeValue")
     public Result queryAttributeValue(@RequestParam(value = "id",required = false) Long id,
-                                 @RequestParam(value = "attributeId",required = true) Long attributeId,
-                                 @RequestParam(value = "value",required = false) String value) {
+                                      @RequestParam(value = "attributeId") Long attributeId,
+                                      @RequestParam(value = "value",required = false) String value,
+                                      @RequestParam(value = "page",required = false) Integer page,
+                                      @RequestParam(value = "pageSize",required = false) Integer pageSize) {
         AttributeValue attributeValue = AttributeValue.builder().id(id).attributeId(attributeId).value(value).build();
+        if (page != null && pageSize != null){
+            PageInfoUtil<AttributeValue> pageInfoUtil = new PageInfoUtil<>(page-1<0?0:page-1,pageSize,attributeValue);
+            return attributeValueService.queryByAttributeValueWithPage(pageInfoUtil);
+        }
         return attributeValueService.queryByAttributeValue(attributeValue);
     }
 

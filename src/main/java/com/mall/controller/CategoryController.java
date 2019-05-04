@@ -3,6 +3,7 @@ package com.mall.controller;
 import com.mall.entity.Category;
 import com.mall.service.CategoryService;
 import com.mall.service.CommonService;
+import com.mall.util.PageInfoUtil;
 import com.mall.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -33,8 +34,14 @@ public class CategoryController {
 
     @GetMapping("/api/category")
     public Result queryCategory(@RequestParam(value = "id",required = false) Long id,
-                                @RequestParam(value = "name",required = false) String name) {
+                                @RequestParam(value = "name",required = false) String name,
+                                @RequestParam(value = "page",required = false) Integer page,
+                                @RequestParam(value = "pageSize",required = false) Integer pageSize) {
         Category category = Category.builder().id(id).name(name).build();
+        if (page != null && pageSize != null){
+            PageInfoUtil<Category> pageInfoUtil = new PageInfoUtil<>(page-1<0?0:page-1,pageSize,category);
+            return categoryService.queryByCategoryWithPage(pageInfoUtil);
+        }
         return categoryService.queryByCategory(category);
     }
 

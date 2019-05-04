@@ -1,8 +1,10 @@
 package com.mall.controller;
 
 import com.mall.entity.Brand;
+import com.mall.entity.Category;
 import com.mall.service.BrandService;
 import com.mall.service.CommonService;
+import com.mall.util.PageInfoUtil;
 import com.mall.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -35,10 +37,16 @@ public class BrandController {
     @GetMapping("/api/brand")
     public Result queryByBrand(@RequestParam(value = "id",required = false) Long id,
                                @RequestParam(value = "name",required = false) String name,
-                               @RequestParam(value = "updateTime",required = false) Long updateTime){
+                               @RequestParam(value = "updateTime",required = false) Long updateTime,
+                               @RequestParam(value = "page",required = false) Integer page,
+                               @RequestParam(value = "pageSize",required = false) Integer pageSize){
         Brand brand = Brand.builder().id(id).name(name).build();
         if (updateTime != null){
             brand.setUpdateTime(new Date(updateTime));
+        }
+        if (page != null && pageSize != null){
+            PageInfoUtil<Brand> pageInfoUtil = new PageInfoUtil<>(page-1<0?0:page-1,pageSize,brand);
+            return brandService.queryByBrandWithPage(pageInfoUtil);
         }
         return brandService.queryByBrand(brand);
     }

@@ -1,6 +1,7 @@
 package com.mall.service;
 
 import com.mall.entity.Brand;
+import com.mall.util.PageInfoUtil;
 import com.mall.util.Result;
 
 /**
@@ -14,6 +15,8 @@ public interface BrandService {
     Result getAll();
 
     Result queryByBrand(Brand brand);
+
+    Result queryByBrandWithPage(PageInfoUtil<Brand> vo);
 
     Result delete(Long id);
 }

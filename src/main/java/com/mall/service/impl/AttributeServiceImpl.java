@@ -1,15 +1,18 @@
 package com.mall.service.impl;
 
 import com.mall.entity.Attribute;
+import com.mall.entity.Attribute;
 import com.mall.entity.Category;
 import com.mall.repository.AttributeRepository;
 import com.mall.repository.CategoryRepository;
 import com.mall.service.AttributeService;
-import com.mall.util.BeanUtil;
-import com.mall.util.DateUtil;
-import com.mall.util.Result;
+import com.mall.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
@@ -70,9 +73,36 @@ public class AttributeServiceImpl implements AttributeService {
 
         });
 
-        return new Result(0,"success",attributes);
+        return new Result(0,"success",new PageResult<>(0,attributes));
     }
 
+    @Override
+    public Result queryByAttributeWithPage(PageInfoUtil<Attribute> vo){
+        Pageable pageable = PageRequest.
+                of(vo.getPage(),vo.getPageSize(), Sort.by(Sort.Direction.DESC,"updateTime"));
+        Page<Attribute> page = attributeRepository.findAll((root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            Attribute attribute = vo.getInfo();
+            if (attribute != null) {
+                if (attribute.getId() != null) {
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("id"), attribute.getId())));
+                }
+                if (attribute.getCategoryId() != null) {
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("categoryId"), attribute.getCategoryId())));
+                }
+                if (StringUtils.isNotEmpty(attribute.getName())) {
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("name"), "%" + attribute.getName() + "%")));
+                }
+            }
+            return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+
+        },pageable);
+
+        PageResult<Attribute> pageResult = new PageResult<>(page.getTotalElements(),page.getContent());
+        return new Result(0, "success", pageResult);
+
+    }
+    
     @Override
     public Result delete(Long id) {
         if (!attributeRepository.existsById(id)) {

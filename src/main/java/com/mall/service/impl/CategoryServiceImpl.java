@@ -1,15 +1,15 @@
 package com.mall.service.impl;
 
-import com.mall.entity.Attribute;
-import com.mall.entity.Brand;
 import com.mall.entity.Category;
 import com.mall.repository.CategoryRepository;
 import com.mall.service.CategoryService;
-import com.mall.util.BeanUtil;
-import com.mall.util.DateUtil;
-import com.mall.util.Result;
+import com.mall.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
@@ -70,9 +70,33 @@ public class CategoryServiceImpl implements CategoryService {
 
         });
 
-        return new Result(0,"success",categories);
+        return new Result(0,"success",new PageResult<>(0,categories));
     }
 
+    @Override
+    public Result queryByCategoryWithPage(PageInfoUtil<Category> vo){
+        Pageable pageable = PageRequest.
+                of(vo.getPage(),vo.getPageSize(), Sort.by(Sort.Direction.DESC,"updateTime"));
+        Page<Category> page = categoryRepository.findAll((root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            Category category = vo.getInfo();
+            if (category != null) {
+                if (category.getId() != null) {
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("id"), category.getId())));
+                }
+                if (StringUtils.isNotEmpty(category.getName())) {
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("name"), "%" + category.getName() + "%")));
+                }
+            }
+            return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+
+        },pageable);
+
+        PageResult<Category> pageResult = new PageResult<>(page.getTotalElements(),page.getContent());
+        return new Result(0, "success", pageResult);
+
+    }
+    
     @Override
     public Result delete(Long id) {
         if (!categoryRepository.existsById(id)) {
