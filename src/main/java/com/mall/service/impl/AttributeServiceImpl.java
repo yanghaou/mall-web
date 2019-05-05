@@ -113,9 +113,9 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public Result queryAttributeList(Long categoryId){
-        List<Attribute> attributes = attributeRepository.findByCategoryId(categoryId);
+        List<Attribute> attributes = attributeRepository.findByCategoryIdOrderByOrderNumDesc(categoryId);
         List<AttributeValue> attributeValues = attributeValueRepository
-                .findByAttributeIdIn(
+                .findByAttributeIdInOrderByOrderNumDesc(
                         attributes.stream().map(Attribute::getId)
                                 .collect(Collectors.toList()));
         List<AttributeVO> attributeVOS = attributes.stream().map(attribute -> {

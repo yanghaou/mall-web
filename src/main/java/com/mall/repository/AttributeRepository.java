@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
 public interface AttributeRepository extends JpaRepository<Attribute, Long> ,JpaSpecificationExecutor<Attribute>{
-    List<Attribute> findByCategoryId(Long categoryId);
+    List<Attribute> findByCategoryIdOrderByOrderNumDesc(Long categoryId);
 }

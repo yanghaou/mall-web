@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
 public interface AttributeValueRepository extends JpaRepository<AttributeValue, Long>, JpaSpecificationExecutor<AttributeValue>{
-    List<AttributeValue> findByAttributeIdIn(List<Long> attributeId);
+    List<AttributeValue> findByAttributeIdInOrderByOrderNumDesc(List<Long> attributeId);
 }
