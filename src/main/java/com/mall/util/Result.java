@@ -1,5 +1,7 @@
 package com.mall.util;
 
+import lombok.Data;
+
 /**
  * author :y.hao
  * time :2019/4/9

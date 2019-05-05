@@ -44,6 +44,12 @@ public class AttributeController {
         }
         return attributeService.queryByAttribute(attribute);
     }
+    @GetMapping("/api/attribute/{categoryId}")
+    public Result queryAttribute(@PathVariable("categoryId") Long categoryId) {
+
+        return attributeService.queryAttributeList(categoryId);
+    }
+
 
     @DeleteMapping("/api/attribute/{id}")
     public Result delete(@PathVariable("id") Long id) {

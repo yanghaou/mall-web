@@ -11,5 +11,7 @@ public interface AttributeService {
 
     Result queryByAttributeWithPage(PageInfoUtil<Attribute> vo);
 
+    Result queryAttributeList(Long categoryId);
+
     Result delete(Long id);
 }

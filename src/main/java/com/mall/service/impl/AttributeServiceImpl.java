@@ -1,13 +1,18 @@
 package com.mall.service.impl;
 
+import com.mall.dto.AttributeVO;
+import com.mall.dto.AttributeValueVO;
 import com.mall.entity.Attribute;
 import com.mall.entity.Attribute;
+import com.mall.entity.AttributeValue;
 import com.mall.entity.Category;
 import com.mall.repository.AttributeRepository;
+import com.mall.repository.AttributeValueRepository;
 import com.mall.repository.CategoryRepository;
 import com.mall.service.AttributeService;
 import com.mall.util.*;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +25,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AttributeServiceImpl implements AttributeService {
     @Autowired
     private AttributeRepository attributeRepository;
+    @Autowired
+    private AttributeValueRepository attributeValueRepository;
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -102,7 +110,33 @@ public class AttributeServiceImpl implements AttributeService {
         return new Result(0, "success", pageResult);
 
     }
-    
+
+    @Override
+    public Result queryAttributeList(Long categoryId){
+        List<Attribute> attributes = attributeRepository.findByCategoryId(categoryId);
+        List<AttributeValue> attributeValues = attributeValueRepository
+                .findByAttributeIdIn(
+                        attributes.stream().map(Attribute::getId)
+                                .collect(Collectors.toList()));
+        List<AttributeVO> attributeVOS = attributes.stream().map(attribute -> {
+            AttributeVO attributeVO = new AttributeVO();
+            BeanUtils.copyProperties(attribute,attributeVO);
+            return attributeVO;
+        }).map(attributeVO -> {
+            List<AttributeValueVO> values = attributeValues.stream()
+                    .filter(attributeValue -> attributeVO.getId().equals(attributeValue.getAttributeId()))
+                    .map(attributeValue -> {
+                AttributeValueVO attributeValueVO = new AttributeValueVO();
+                BeanUtils.copyProperties(attributeValue,attributeValueVO);
+                return attributeValueVO;
+            }).collect(Collectors.toList());
+            attributeVO.setValues(values);
+            return attributeVO;
+        }).collect(Collectors.toList());
+
+        return new Result(0,"success",attributeVOS);
+    }
+
     @Override
     public Result delete(Long id) {
         if (!attributeRepository.existsById(id)) {

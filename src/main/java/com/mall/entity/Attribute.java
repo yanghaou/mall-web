@@ -7,13 +7,11 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -36,6 +34,8 @@ public class Attribute implements Serializable {
     //排序
     @NotNull(message = "属性排序不能为空")
     private Byte orderNum;
+    @NotNull(message = "属性类型不能为空")
+    private Byte multi;
     private Date createTime;
     private Date updateTime;
 }
