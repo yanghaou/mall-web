@@ -15,17 +15,17 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 
 
-@Component
+//@Component
 public class DruidMonitorConfig {
     private static final Logger logger = LoggerFactory.getLogger(DruidMonitorConfig.class);
 
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
+//    @Bean
+//    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource druid() {
         return new DruidDataSource();
     }
 
-    @Bean
+//    @Bean
     public ServletRegistrationBean servletRegistrationBean() {
         logger.info("init Druid Monitor Servlet ...");
         ServletRegistrationBean servletRegistrationBean =
@@ -42,7 +42,7 @@ public class DruidMonitorConfig {
         return servletRegistrationBean;
     }
 
-    @Bean
+//    @Bean
     public FilterRegistrationBean filterRegistrationBean() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new WebStatFilter());
         filterRegistrationBean.addUrlPatterns("/*");
