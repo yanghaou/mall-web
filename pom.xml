@@ -24,6 +24,7 @@
     <modules>
         <module>web-admin</module>
         <module>web-common</module>
+        <module>web-api</module>
     </modules>
 
 	<dependencyManagement>
