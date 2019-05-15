@@ -1,6 +1,6 @@
 package com.mall.admin.service;
 
-import com.mall.admin.entity.Attribute;
+import com.mall.common.entity.Attribute;
 import com.mall.admin.util.PageInfoUtil;
 import com.mall.admin.util.Result;
 

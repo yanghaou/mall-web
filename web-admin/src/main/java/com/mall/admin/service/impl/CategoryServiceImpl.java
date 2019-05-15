@@ -1,6 +1,6 @@
 package com.mall.admin.service.impl;
 
-import com.mall.admin.entity.Category;
+import com.mall.common.entity.Category;
 import com.mall.admin.repository.CategoryRepository;
 import com.mall.admin.service.CategoryService;
 import com.mall.admin.util.*;

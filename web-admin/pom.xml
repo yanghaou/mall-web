@@ -48,6 +48,10 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
+        <dependency>
+            <artifactId>web-common</artifactId>
+            <groupId>com.mall</groupId>
+        </dependency>
     </dependencies>
 
     <build>

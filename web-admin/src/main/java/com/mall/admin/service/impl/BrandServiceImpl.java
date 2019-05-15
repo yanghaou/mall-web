@@ -1,6 +1,6 @@
 package com.mall.admin.service.impl;
 
-import com.mall.admin.entity.Brand;
+import com.mall.common.entity.Brand;
 import com.mall.admin.repository.BrandRepository;
 import com.mall.admin.service.BrandService;
 import com.mall.admin.util.*;

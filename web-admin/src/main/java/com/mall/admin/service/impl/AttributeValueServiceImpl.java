@@ -1,7 +1,7 @@
 package com.mall.admin.service.impl;
 
-import com.mall.admin.entity.Attribute;
-import com.mall.admin.entity.AttributeValue;
+import com.mall.common.entity.Attribute;
+import com.mall.common.entity.AttributeValue;
 import com.mall.admin.repository.AttributeRepository;
 import com.mall.admin.repository.AttributeValueRepository;
 import com.mall.admin.service.AttributeValueService;

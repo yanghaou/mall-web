@@ -1,4 +1,4 @@
-package com.mall.admin.entity;
+package com.mall.common.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

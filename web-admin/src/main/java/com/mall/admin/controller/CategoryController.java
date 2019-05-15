@@ -1,6 +1,6 @@
 package com.mall.admin.controller;
 
-import com.mall.admin.entity.Category;
+import com.mall.common.entity.Category;
 import com.mall.admin.service.CategoryService;
 import com.mall.admin.service.CommonService;
 import com.mall.admin.util.PageInfoUtil;

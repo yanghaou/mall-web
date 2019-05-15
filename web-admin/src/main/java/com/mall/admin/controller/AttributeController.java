@@ -1,6 +1,6 @@
 package com.mall.admin.controller;
 
-import com.mall.admin.entity.Attribute;
+import com.mall.common.entity.Attribute;
 import com.mall.admin.service.AttributeService;
 import com.mall.admin.service.CommonService;
 import com.mall.admin.util.PageInfoUtil;

@@ -2,7 +2,7 @@ package com.mall.admin.controller;
 
 import com.mall.admin.dto.ProductSkuVO;
 import com.mall.admin.dto.ProductVO;
-import com.mall.admin.entity.Product;
+import com.mall.common.entity.Product;
 import com.mall.admin.service.CommonService;
 import com.mall.admin.service.ProductService;
 import com.mall.admin.util.PageInfoUtil;

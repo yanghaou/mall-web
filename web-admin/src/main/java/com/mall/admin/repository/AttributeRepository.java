@@ -1,6 +1,6 @@
 package com.mall.admin.repository;
 
-import com.mall.admin.entity.Attribute;
+import com.mall.common.entity.Attribute;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

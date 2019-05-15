@@ -1,4 +1,4 @@
-package com.mall.admin.entity;
+package com.mall.common.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,21 +16,15 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "t_product")
-public class Product implements Serializable{
+@Entity(name = "t_sku")
+public class Sku implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private Long categoryId;
-    private Long brandId;
-    private String subHead;
-    private String detail;
-    private Byte orderNum;
-    private String unit;
-    //上下线
-    private Byte status;
-    private String picture;
+    private String skuId;
+    private Long productId;
+    private Long attributeNameId;
+    private Long attributeValueId;
     private Date createTime;
     private Date updateTime;
 }

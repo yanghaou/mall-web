@@ -22,6 +22,7 @@
 
     <modules>
         <module>web-admin</module>
+        <module>web-common</module>
     </modules>
 
 	<dependencyManagement>
@@ -49,6 +50,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>web-common</artifactId>
+                <groupId>com.mall</groupId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
 	</dependencyManagement>

@@ -1,6 +1,6 @@
 package com.mall.admin.repository;
 
-import com.mall.admin.entity.Sku;
+import com.mall.common.entity.Sku;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;

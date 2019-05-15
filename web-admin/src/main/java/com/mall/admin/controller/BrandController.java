@@ -1,6 +1,6 @@
 package com.mall.admin.controller;
 
-import com.mall.admin.entity.Brand;
+import com.mall.common.entity.Brand;
 import com.mall.admin.service.BrandService;
 import com.mall.admin.service.CommonService;
 import com.mall.admin.util.PageInfoUtil;
