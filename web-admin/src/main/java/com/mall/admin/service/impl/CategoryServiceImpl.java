@@ -1,9 +1,10 @@
 package com.mall.admin.service.impl;
 
+import com.mall.admin.util.BeanUtil;
 import com.mall.common.entity.Category;
 import com.mall.admin.repository.CategoryRepository;
 import com.mall.admin.service.CategoryService;
-import com.mall.admin.util.*;
+import com.mall.common.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

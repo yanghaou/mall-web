@@ -1,7 +1,7 @@
 package com.mall.admin.service.impl;
 
 import com.mall.admin.service.FileService;
-import com.mall.admin.util.Result;
+import com.mall.common.util.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

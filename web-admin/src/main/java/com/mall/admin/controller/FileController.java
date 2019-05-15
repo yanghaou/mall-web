@@ -1,7 +1,7 @@
 package com.mall.admin.controller;
 
 import com.mall.admin.service.FileService;
-import com.mall.admin.util.Result;
+import com.mall.common.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;

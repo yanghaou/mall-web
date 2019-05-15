@@ -1,6 +1,6 @@
 package com.mall.admin.service;
 
-import com.mall.admin.util.Result;
+import com.mall.common.util.Result;
 import org.springframework.web.multipart.MultipartFile;
 
 /**

@@ -1,8 +1,8 @@
 package com.mall.admin.service;
 
 import com.mall.common.entity.AttributeValue;
-import com.mall.admin.util.PageInfoUtil;
-import com.mall.admin.util.Result;
+import com.mall.common.util.PageInfoUtil;
+import com.mall.common.util.Result;
 
 public interface AttributeValueService {
     Result save(AttributeValue attribute);

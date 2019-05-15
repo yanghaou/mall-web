@@ -2,6 +2,7 @@ package com.mall.admin.service.impl;
 
 import com.mall.admin.dto.AttributeVO;
 import com.mall.admin.dto.AttributeValueVO;
+import com.mall.admin.util.BeanUtil;
 import com.mall.common.entity.Attribute;
 import com.mall.common.entity.AttributeValue;
 import com.mall.common.entity.Category;
@@ -9,7 +10,7 @@ import com.mall.admin.repository.AttributeRepository;
 import com.mall.admin.repository.AttributeValueRepository;
 import com.mall.admin.repository.CategoryRepository;
 import com.mall.admin.service.AttributeService;
-import com.mall.admin.util.*;
+import com.mall.common.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

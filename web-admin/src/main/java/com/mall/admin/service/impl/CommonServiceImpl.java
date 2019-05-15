@@ -1,7 +1,7 @@
 package com.mall.admin.service.impl;
 
 import com.mall.admin.service.CommonService;
-import com.mall.admin.util.Result;
+import com.mall.common.util.Result;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
