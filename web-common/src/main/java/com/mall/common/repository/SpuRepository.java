@@ -1,16 +1,17 @@
-package com.mall.admin.repository;
+package com.mall.common.repository;
 
-import com.mall.common.entity.Sku;
+import com.mall.common.entity.Spu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface SkuRepository extends JpaRepository<Sku,Long>{
+public interface SpuRepository extends JpaRepository<Spu,Long>{
     @Modifying
     @Transactional
-    int deleteAllByProductId(Long productId);
+    void deleteAllByProductId(Long productId);
 
-    List<Sku> findByProductId(Long productId);
+    List<Spu> findByProductId(Long productId);
+
 }

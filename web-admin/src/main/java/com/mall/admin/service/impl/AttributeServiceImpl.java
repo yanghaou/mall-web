@@ -2,13 +2,13 @@ package com.mall.admin.service.impl;
 
 import com.mall.admin.dto.AttributeVO;
 import com.mall.admin.dto.AttributeValueVO;
-import com.mall.admin.util.BeanUtil;
+import com.mall.common.util.BeanUtil;
 import com.mall.common.entity.Attribute;
 import com.mall.common.entity.AttributeValue;
 import com.mall.common.entity.Category;
-import com.mall.admin.repository.AttributeRepository;
-import com.mall.admin.repository.AttributeValueRepository;
-import com.mall.admin.repository.CategoryRepository;
+import com.mall.common.repository.AttributeRepository;
+import com.mall.common.repository.AttributeValueRepository;
+import com.mall.common.repository.CategoryRepository;
 import com.mall.admin.service.AttributeService;
 import com.mall.common.util.*;
 import org.apache.commons.lang3.StringUtils;
@@ -47,7 +47,7 @@ public class AttributeServiceImpl implements AttributeService {
             attribute.setCreateTime(DateUtil.getCurrentDateTime());
             attribute.setUpdateTime(DateUtil.getCurrentDateTime());
             attributeRepository.save(attribute);
-            return new Result(0, "success");
+            return new Result(RspCode.SUCCESS);
         }
 
         //编辑
@@ -60,7 +60,7 @@ public class AttributeServiceImpl implements AttributeService {
         Attribute attributeSource = attributeOptional.get();
         BeanUtil.copyNullProperties(attributeSource, attribute);
         attributeRepository.save(attribute);
-        return new Result(0, "success");
+        return new Result(RspCode.SUCCESS);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class AttributeServiceImpl implements AttributeService {
 
         });
 
-        return new Result(0,"success",new PageResult<>(0,attributes));
+        return new Result(RspCode.SUCCESS,new PageResult<>(0,attributes));
     }
 
     @Override
@@ -107,7 +107,7 @@ public class AttributeServiceImpl implements AttributeService {
         },pageable);
 
         PageResult<Attribute> pageResult = new PageResult<>(page.getTotalElements(),page.getContent());
-        return new Result(0, "success", pageResult);
+        return new Result(RspCode.SUCCESS, pageResult);
 
     }
 
@@ -134,7 +134,7 @@ public class AttributeServiceImpl implements AttributeService {
             return attributeVO;
         }).collect(Collectors.toList());
 
-        return new Result(0,"success",attributeVOS);
+        return new Result(RspCode.SUCCESS,attributeVOS);
     }
 
     @Override
@@ -143,6 +143,6 @@ public class AttributeServiceImpl implements AttributeService {
             return new Result(1, "类型不存在！");
         }
         attributeRepository.deleteById(id);
-        return new Result(0, "success");
+        return new Result(RspCode.SUCCESS);
     }
 }

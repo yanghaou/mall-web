@@ -29,6 +29,7 @@ public class Category implements Serializable {
     private String name;
     @NotNull(message = "分类排序不能为空")
     private Byte orderNum;
+    private String pic;
     private Date createTime;
     private Date updateTime;
 }

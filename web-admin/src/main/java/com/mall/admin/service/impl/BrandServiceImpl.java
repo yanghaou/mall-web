@@ -1,8 +1,8 @@
 package com.mall.admin.service.impl;
 
-import com.mall.admin.util.BeanUtil;
+import com.mall.common.util.BeanUtil;
 import com.mall.common.entity.Brand;
-import com.mall.admin.repository.BrandRepository;
+import com.mall.common.repository.BrandRepository;
 import com.mall.admin.service.BrandService;
 import com.mall.common.util.*;
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +35,7 @@ public class BrandServiceImpl implements BrandService {
             brand.setCreateTime(DateUtil.getCurrentDateTime());
             brand.setUpdateTime(DateUtil.getCurrentDateTime());
             brandRepository.save(brand);
-            return new Result(0, "success");
+            return new Result(RspCode.SUCCESS);
         }
         //编辑
         Optional<Brand> brandOptional = brandRepository.findById(brand.getId());
@@ -47,13 +47,13 @@ public class BrandServiceImpl implements BrandService {
         Brand attributeSource = brandOptional.get();
         BeanUtil.copyNullProperties(attributeSource, brand);
         brandRepository.save(brand);
-        return new Result(0, "success");
+        return new Result(RspCode.SUCCESS);
         
     }
 
     public Result getAll() {
         List<Brand> tBrands = brandRepository.findAll();
-        return new Result(0, "success", tBrands);
+        return new Result(RspCode.SUCCESS, tBrands);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class BrandServiceImpl implements BrandService {
             return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 
         });
-        return new Result(0, "success", new PageResult<>(0,brands));
+        return new Result(RspCode.SUCCESS, new PageResult<>(0,brands));
     }
 
     @Override
@@ -96,7 +96,7 @@ public class BrandServiceImpl implements BrandService {
         },pageable);
 
         PageResult<Brand> pageResult = new PageResult<>(page.getTotalElements(),page.getContent());
-        return new Result(0, "success", pageResult);
+        return new Result(RspCode.SUCCESS, pageResult);
 
     }
 
@@ -105,6 +105,6 @@ public class BrandServiceImpl implements BrandService {
             return new Result(1, "品牌不存在！");
         }
         brandRepository.deleteById(id);
-        return new Result(0, "success");
+        return new Result(RspCode.SUCCESS);
     }
 }

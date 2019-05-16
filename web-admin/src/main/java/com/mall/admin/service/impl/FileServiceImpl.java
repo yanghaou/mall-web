@@ -2,6 +2,7 @@ package com.mall.admin.service.impl;
 
 import com.mall.admin.service.FileService;
 import com.mall.common.util.Result;
+import com.mall.common.util.RspCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +27,7 @@ public class FileServiceImpl implements FileService {
 
     public Result uploadFile(MultipartFile file) {
         if (file.isEmpty()) {
-            return new Result(-1, "文件不能为空！", null);
+            return new Result(-1, "文件不能为空！");
         }
 
         //获取上传图片的宽高,用来做图片大小限制
@@ -57,6 +58,6 @@ public class FileServiceImpl implements FileService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new Result(-1, "failed", null);
+        return new Result(RspCode.FAILED, null);
     }
 }

@@ -23,6 +23,7 @@ public class SkuStock implements Serializable {
     private String pic;
     private BigDecimal originPrice;
     private BigDecimal marketPrice;
+    private Byte status;
     private BigDecimal stock;
     private BigDecimal stockAlarm;
     private Date createTime;

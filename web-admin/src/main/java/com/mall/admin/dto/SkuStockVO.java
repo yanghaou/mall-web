@@ -22,12 +22,14 @@ public class SkuStockVO implements Serializable {
     @NotNull(message = "商品sku不能为空")
     @Valid
     private List<AttrItemVO> skuList;
-    @NotNull(message = "商品sku图片不能为空")
+    @NotEmpty(message = "商品sku图片不能为空")
     private String pic;
     @NotNull(message = "商品原始价格不能为空")
     private BigDecimal originPrice;
     @NotNull(message = "商品零售价格不能为空")
     private BigDecimal marketPrice;
+    @NotNull(message = "sku状态不能为空")
+    private Byte status;
     @NotNull(message = "商品库存不能为空")
     private BigDecimal stock;
     @NotNull(message = "库存预警值不能为空")

@@ -20,5 +20,4 @@ public class PageInfoUtil<T> {
     @NotNull
     private Integer pageSize;
     T Info;
-
 }

@@ -1,4 +1,4 @@
-package com.mall.admin.repository;
+package com.mall.common.repository;
 
 import com.mall.common.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;

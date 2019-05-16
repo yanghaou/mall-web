@@ -1,10 +1,10 @@
 package com.mall.admin.service.impl;
 
-import com.mall.admin.util.BeanUtil;
+import com.mall.common.util.BeanUtil;
 import com.mall.common.entity.Attribute;
 import com.mall.common.entity.AttributeValue;
-import com.mall.admin.repository.AttributeRepository;
-import com.mall.admin.repository.AttributeValueRepository;
+import com.mall.common.repository.AttributeRepository;
+import com.mall.common.repository.AttributeValueRepository;
 import com.mall.admin.service.AttributeValueService;
 import com.mall.common.util.*;
 import org.apache.commons.lang3.StringUtils;
@@ -39,7 +39,7 @@ public class AttributeValueServiceImpl implements AttributeValueService {
             attributeValue.setCreateTime(DateUtil.getCurrentDateTime());
             attributeValue.setUpdateTime(DateUtil.getCurrentDateTime());
             attributeValueRepository.save(attributeValue);
-            return new Result(0, "success");
+            return new Result(RspCode.SUCCESS);
         }
 
         //编辑
@@ -53,13 +53,13 @@ public class AttributeValueServiceImpl implements AttributeValueService {
         //把不为空的值复制到更新后的对象
         BeanUtil.copyNullProperties(attributeSource, attributeValue);
         attributeValueRepository.save(attributeValue);
-        return new Result(0, "success");
+        return new Result(RspCode.SUCCESS);
     }
 
     @Override
     public Result getAll() {
         List<AttributeValue> attributes = attributeValueRepository.findAll();
-        return new Result(0, "success", attributes);
+        return new Result(RspCode.SUCCESS, attributes);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class AttributeValueServiceImpl implements AttributeValueService {
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         });
-        return new Result(0, "success", new PageResult<>(0,attributeValues));
+        return new Result(RspCode.SUCCESS, new PageResult<>(0,attributeValues));
     }
 
     @Override
@@ -103,7 +103,7 @@ public class AttributeValueServiceImpl implements AttributeValueService {
         },pageable);
 
         PageResult<AttributeValue> pageResult = new PageResult<>(page.getTotalElements(),page.getContent());
-        return new Result(0, "success", pageResult);
+        return new Result(RspCode.SUCCESS, pageResult);
 
     }
     
@@ -113,6 +113,6 @@ public class AttributeValueServiceImpl implements AttributeValueService {
             return new Result(1, "属性值不存在！");
         }
         attributeValueRepository.deleteById(id);
-        return new Result(0, "success");
+        return new Result(RspCode.SUCCESS);
     }
 }

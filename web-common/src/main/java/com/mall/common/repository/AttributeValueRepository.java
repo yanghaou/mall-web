@@ -1,4 +1,4 @@
-package com.mall.admin.repository;
+package com.mall.common.repository;
 
 import com.mall.common.entity.AttributeValue;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package com.mall.admin.util;
+package com.mall.common.util;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;

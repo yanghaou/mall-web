@@ -4,12 +4,12 @@ import com.mall.admin.dto.AttrItemVO;
 import com.mall.admin.dto.ProductSkuVO;
 import com.mall.admin.dto.ProductVO;
 import com.mall.admin.dto.SkuStockVO;
-import com.mall.admin.util.BeanUtil;
+import com.mall.common.util.BeanUtil;
 import com.mall.common.entity.Product;
 import com.mall.common.entity.Sku;
 import com.mall.common.entity.SkuStock;
 import com.mall.common.entity.Spu;
-import com.mall.admin.repository.*;
+import com.mall.common.repository.*;
 import com.mall.admin.service.ProductService;
 import com.mall.common.util.*;
 import org.apache.commons.lang3.StringUtils;
@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
             product.setCreateTime(DateUtil.getCurrentDateTime());
             product.setUpdateTime(DateUtil.getCurrentDateTime());
             productRepository.save(product);
-            return new Result(0, "success");
+            return new Result(RspCode.SUCCESS);
         }
         //编辑
         Optional<Product> productOptional = productRepository.findById(product.getId());
@@ -79,13 +79,13 @@ public class ProductServiceImpl implements ProductService {
         Product pSource = productOptional.get();
         BeanUtil.copyNullProperties(pSource, product);
         productRepository.save(product);
-        return new Result(0, "success");
+        return new Result(RspCode.SUCCESS);
     }
 
     @Override
     public Result deleteProduct(Long id){
         productRepository.deleteById(id);
-        return new Result(0, "success");
+        return new Result(RspCode.SUCCESS);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class ProductServiceImpl implements ProductService {
         },pageable);
 
         PageResult<Product> pageResult = new PageResult<>(page.getTotalElements(),page.getContent());
-        return new Result(0, "success", pageResult);
+        return new Result(RspCode.SUCCESS, pageResult);
 
     }
 
@@ -143,6 +143,7 @@ public class ProductServiceImpl implements ProductService {
                     .stockAlarm(skuStockVO.getStockAlarm())
                     .marketPrice(skuStockVO.getMarketPrice())
                     .originPrice(skuStockVO.getOriginPrice())
+                    .status(skuStockVO.getStatus())
                     .pic(skuStockVO.getPic())
                     .createTime(date)
                     .updateTime(date)
@@ -188,7 +189,7 @@ public class ProductServiceImpl implements ProductService {
         spuRepository.saveAll(spus);
         skuRepository.saveAll(skus);
         skuStockRepository.saveAll(skuStocks);
-        return new Result(0, "success");
+        return new Result(RspCode.SUCCESS);
     }
 
     @Override
@@ -226,7 +227,7 @@ public class ProductServiceImpl implements ProductService {
 
         ProductSkuVO productSkuVO = new ProductSkuVO(productId,skuStockVOS,spuList);
 
-        return new Result(0,"success",productSkuVO);
+        return new Result(RspCode.SUCCESS,productSkuVO);
 
     }
 }

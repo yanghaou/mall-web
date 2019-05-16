@@ -1,8 +1,8 @@
 package com.mall.admin.service.impl;
 
-import com.mall.admin.util.BeanUtil;
+import com.mall.common.util.BeanUtil;
 import com.mall.common.entity.Category;
-import com.mall.admin.repository.CategoryRepository;
+import com.mall.common.repository.CategoryRepository;
 import com.mall.admin.service.CategoryService;
 import com.mall.common.util.*;
 import org.apache.commons.lang3.StringUtils;
@@ -36,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
             category.setCreateTime(DateUtil.getCurrentDateTime());
             category.setUpdateTime(DateUtil.getCurrentDateTime());
             categoryRepository.save(category);
-            return new Result(0, "success");
+            return new Result(RspCode.SUCCESS);
         }
         //编辑
         Optional<Category> categoryOptional = categoryRepository.findById(category.getId());
@@ -48,13 +48,13 @@ public class CategoryServiceImpl implements CategoryService {
         Category attributeSource = categoryOptional.get();
         BeanUtil.copyNullProperties(attributeSource, category);
         categoryRepository.save(category);
-        return new Result(0, "success");
+        return new Result(RspCode.SUCCESS);
     }
 
     @Override
     public Result getAll() {
         List<Category> categories = categoryRepository.findAll();
-        return new Result(0, "success", categories);
+        return new Result(RspCode.SUCCESS, categories);
     }
 
     @Override
@@ -64,6 +64,9 @@ public class CategoryServiceImpl implements CategoryService {
             if (category.getId() != null){
                 predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("id"),category.getId())));
             }
+            if (category.getParentId() != null) {
+                predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("parentId"), category.getParentId())));
+            }
             if (StringUtils.isNotEmpty(category.getName())){
                 predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("name"),"%"+category.getName()+"%")));
             }
@@ -71,7 +74,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         });
 
-        return new Result(0,"success",new PageResult<>(0,categories));
+        return new Result(RspCode.SUCCESS,new PageResult<>(0,categories));
     }
 
     @Override
@@ -85,6 +88,9 @@ public class CategoryServiceImpl implements CategoryService {
                 if (category.getId() != null) {
                     predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("id"), category.getId())));
                 }
+                if (category.getParentId() != null) {
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("parentId"), category.getParentId())));
+                }
                 if (StringUtils.isNotEmpty(category.getName())) {
                     predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("name"), "%" + category.getName() + "%")));
                 }
@@ -94,7 +100,7 @@ public class CategoryServiceImpl implements CategoryService {
         },pageable);
 
         PageResult<Category> pageResult = new PageResult<>(page.getTotalElements(),page.getContent());
-        return new Result(0, "success", pageResult);
+        return new Result(RspCode.SUCCESS, pageResult);
 
     }
     
@@ -104,6 +110,6 @@ public class CategoryServiceImpl implements CategoryService {
             return new Result(1, "分类不存在！");
         }
         categoryRepository.deleteById(id);
-        return new Result(0, "success");
+        return new Result(RspCode.SUCCESS);
     }
 }
