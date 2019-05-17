@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 资源映射路径
  */
 @Configuration
-public class MyWebAppConfigurer implements WebMvcConfigurer {
+public class ResourceConfig implements WebMvcConfigurer {
     @Value("${image.path}")
     private String imagePath;
 

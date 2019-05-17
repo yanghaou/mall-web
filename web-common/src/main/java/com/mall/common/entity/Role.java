@@ -9,17 +9,11 @@ import java.util.Date;
 @Data
 @Entity(name = "t_role")
 public class Role implements Serializable {
-
-	private static final long serialVersionUID = -1714476694755654924L;
-
 	@Id
-	private Long roleId;
-
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String roleName;
-
 	private String remark;
-
 	private Date createTime;
-
-	private Date modifyTime;
+	private Date updateTime;
 }

@@ -5,11 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-@Table(name = "t_userconnection")
 public class UserConnection implements Serializable {
-
-    private static final long serialVersionUID = 4524865782905130277L;
-
     @Id
     @Column(name = "userId")
     private String userid;
