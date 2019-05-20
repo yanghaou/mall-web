@@ -1,9 +1,11 @@
 package com.mall.common.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
-
-@Table(name = "t_role_menu")
+@Data
+@Entity(name = "t_role_menu")
 public class RoleMenu implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
