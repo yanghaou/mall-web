@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("jwtUserDetailsService")
 public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired

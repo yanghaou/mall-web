@@ -26,6 +26,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     private RestAccessDeniedHandler restAccessDeniedHandler;
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+    @Autowired
+    private RestAuthenticationSuccessHandler restAuthenticationSuccessHandler;
+    @Autowired
+    private RestAuthenticationFailureHandler restAuthenticationFailureHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -56,7 +60,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js",
-                        "/swagger-resources/**"
+                        "/swagger-resources/**",
+                        "/druid/*"
                 ).permitAll()
                 //对登录注册要允许匿名访问
                 .antMatchers("/user/login", "/user/register").permitAll()
@@ -65,7 +70,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 //测试时全部运行访问
                 //.antMatchers("/**").permitAll()
                 //除上面外的所有请求全部需要鉴权认证
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                //任何请求,登录后可以访问
+                .and().formLogin().loginProcessingUrl("/login")
+                .successHandler(restAuthenticationSuccessHandler)
+                .failureHandler(restAuthenticationFailureHandler);
+
         // 禁用缓存
         http.headers().cacheControl();
 

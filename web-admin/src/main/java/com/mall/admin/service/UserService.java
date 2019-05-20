@@ -8,5 +8,5 @@ import java.util.List;
 public interface UserService {
     User findByUsername(String username);
 
-    List<Menu> getPermissionList(Long id);
+    List<Menu> getMenuList(Long id);
 }
