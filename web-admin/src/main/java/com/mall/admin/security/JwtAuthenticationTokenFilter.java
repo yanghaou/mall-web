@@ -22,7 +22,7 @@ import java.io.IOException;
 @Slf4j
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
-    @Resource(name = "jwtUserDetailsService")
+    @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;

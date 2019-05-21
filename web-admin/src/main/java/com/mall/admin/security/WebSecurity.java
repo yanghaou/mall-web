@@ -1,5 +1,8 @@
 package com.mall.admin.security;
 
+import com.mall.admin.service.UserService;
+import com.mall.common.entity.Menu;
+import com.mall.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -9,13 +12,19 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+
+import java.util.List;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
@@ -30,6 +39,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     private RestAuthenticationSuccessHandler restAuthenticationSuccessHandler;
     @Autowired
     private RestAuthenticationFailureHandler restAuthenticationFailureHandler;
+    @Autowired
+    private UserService userService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -52,17 +63,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET,
-                        // 允许对于网站静态资源的无授权访问
-                        "/",
-                        "/*.html",
-                        "/favicon.ico",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js",
-                        "/swagger-resources/**",
-                        "/druid/*"
-                ).permitAll()
                 //对登录注册要允许匿名访问
                 .antMatchers("/user/login", "/user/register").permitAll()
                 //跨域请求会先进行一次options请求
@@ -74,10 +74,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 //任何请求,登录后可以访问
                 .and().formLogin().loginProcessingUrl("/login")
                 .successHandler(restAuthenticationSuccessHandler)
-                .failureHandler(restAuthenticationFailureHandler);
+                .failureHandler(restAuthenticationFailureHandler)
+                .and().headers().cacheControl();
 
-        // 禁用缓存
-        http.headers().cacheControl();
+        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http.authorizeRequests();
+        //让Spring security 放行所有preflight request（cors 预检请求）
+        registry.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
 
         //添加自定义未授权和未登录结果返回
         http.exceptionHandling()
@@ -102,4 +104,17 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         return new CorsFilter(source);
     }
 
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        //获取登录用户信息
+        return username -> {
+            User user = userService.findByUsername(username);
+            if (user == null) {
+                throw new UsernameNotFoundException(String.format("%s.用户名或密码错误", username));
+            }
+            List<Menu> menus = userService.getMenuList(user.getId());
+            return new JwtUser(user, menus);
+        };
+    }
 }

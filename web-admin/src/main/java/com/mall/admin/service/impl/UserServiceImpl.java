@@ -19,11 +19,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsernameAndStatus(username,1);
     }
 
     @Override
     public List<Menu> getMenuList(Long id) {
-        return menuRepository.find;
+        return menuRepository.findByUserId(id);
     }
 }
