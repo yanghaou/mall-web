@@ -32,7 +32,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
     @Autowired
-    private RestAccessDeniedHandler restAccessDeniedHandler;
+    private AuthAccessDeniedHandler authAccessDeniedHandler;
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
     @Autowired
@@ -73,8 +73,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 //任何请求,登录后可以访问
                 .and().formLogin().loginProcessingUrl("/login")
-                .successHandler(restAuthenticationSuccessHandler)
-                .failureHandler(restAuthenticationFailureHandler)
                 .and().headers().cacheControl();
 
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http.authorizeRequests();
@@ -83,7 +81,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
         //添加自定义未授权和未登录结果返回
         http.exceptionHandling()
-                .accessDeniedHandler(restAccessDeniedHandler)
+                .accessDeniedHandler(authAccessDeniedHandler)
                 .authenticationEntryPoint(restAuthenticationEntryPoint);
     }
 

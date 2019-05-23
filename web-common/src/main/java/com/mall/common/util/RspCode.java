@@ -4,7 +4,7 @@ public enum RspCode {
     SUCCESS(0,"success"),
     FAILED(1,"failed"),
     TOKEN_ERROR_OR_EXPIRED(2,"token错误或已过期"),
-    NO_AUTH(3,"权限不足"),
+    NO_AUTH(3,"权限不足,请联系管理员！"),
     USERNAME_OR_PASSWORD_FAILED(4,"用户名或密码错误");
 
     private int code;

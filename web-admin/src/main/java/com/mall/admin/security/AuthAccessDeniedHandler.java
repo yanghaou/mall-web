@@ -17,7 +17,7 @@ import java.io.IOException;
  * Created by macro on 2018/4/26.
  */
 @Component
-public class RestAccessDeniedHandler implements AccessDeniedHandler {
+public class AuthAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request,
                        HttpServletResponse response,
