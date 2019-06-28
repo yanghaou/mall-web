@@ -7,8 +7,8 @@ package com.mall.admin.constant;
  */
 public final class ConstantParam {
     public static final String COMA = ",";
-    public static final String TYPE_MENU = "0";
-    public static final String TYPE_BUTTON = "1";
+    public static final int TYPE_MENU = 1;
+    public static final int TYPE_BUTTON = 2;
     /**
      * 账户状态
      */

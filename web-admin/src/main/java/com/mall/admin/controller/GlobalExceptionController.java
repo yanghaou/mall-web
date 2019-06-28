@@ -1,5 +1,6 @@
 package com.mall.admin.controller;
 
+import com.mall.admin.common.BuzException;
 import com.mall.common.util.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,5 +57,9 @@ public class GlobalExceptionController {
         return result;
     }
 
+    @ExceptionHandler(BuzException.class)
+    public Result BuzException(BuzException e){
+        return new Result(e.getCode(),e.getMsg());
+    }
 
 }

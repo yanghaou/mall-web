@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,9 +15,9 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NotEmpty(message = "用户名不能为空")
     private String username;
-
+    @NotEmpty(message = "密码不能为空")
     private String password;
 
     @ApiModelProperty(value = "头像")
@@ -33,6 +34,9 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
+
+    @ApiModelProperty(value = "更新时间")
+    private Date updateTime;
 
     @ApiModelProperty(value = "最后登录时间")
     private Date loginTime;

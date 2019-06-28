@@ -1,12 +1,11 @@
 package com.mall.admin.service;
 
-import com.mall.common.entity.Menu;
 import com.mall.common.entity.User;
-
-import java.util.List;
+import com.mall.common.util.Result;
 
 public interface UserService {
-    User findByUsername(String username);
 
-    List<Menu> getMenuList(Long id);
+    Result register(User user);
+
+    Result login(User user);
 }
