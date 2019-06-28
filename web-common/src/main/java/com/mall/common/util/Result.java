@@ -38,4 +38,12 @@ public class Result {
         this.message = message;
         this.data = data;
     }
+
+    public static Result success(Object data){
+        return new Result(RspCode.SUCCESS,data);
+    }
+
+    public static Result failed(String message){
+        return new Result(RspCode.FAILED);
+    }
 }
