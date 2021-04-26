@@ -16,7 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<druid.version>1.1.16</druid.version>
 		<lombok.version>1.16.20</lombok.version>
-		<common-io.version>2.5</common-io.version>
+		<common-io.version>2.7</common-io.version>
 		<fastjson.version>1.2.57</fastjson.version>
         <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
 	</properties>
